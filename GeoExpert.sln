@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35208.52
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoExpert", "GeoExpert\GeoExpert.csproj", "{6E7BD768-3CB8-424A-821D-A8857C5E706D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6E7BD768-3CB8-424A-821D-A8857C5E706D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E7BD768-3CB8-424A-821D-A8857C5E706D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E7BD768-3CB8-424A-821D-A8857C5E706D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E7BD768-3CB8-424A-821D-A8857C5E706D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C4D02525-C2F0-46ED-BE0E-5E115E6D7FCD}
+	EndGlobalSection
+EndGlobal
