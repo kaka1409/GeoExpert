@@ -28,23 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
+            AddQuestionBtn = new Button();
             ExitBtn = new Button();
+            listBox1 = new ListBox();
+            button2 = new Button();
+            button3 = new Button();
+            GameTitle = new Label();
             SuspendLayout();
             // 
-            // button1
+            // AddQuestionBtn
             // 
-            button1.Location = new Point(606, 159);
-            button1.Name = "button1";
-            button1.Size = new Size(114, 23);
-            button1.TabIndex = 0;
-            button1.Text = "Add question";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            AddQuestionBtn.Cursor = Cursors.Hand;
+            AddQuestionBtn.Location = new Point(613, 114);
+            AddQuestionBtn.Name = "AddQuestionBtn";
+            AddQuestionBtn.Size = new Size(114, 23);
+            AddQuestionBtn.TabIndex = 0;
+            AddQuestionBtn.Text = "Add question";
+            AddQuestionBtn.UseVisualStyleBackColor = true;
+            AddQuestionBtn.Click += button1_Click;
             // 
             // ExitBtn
             // 
             ExitBtn.BackColor = Color.FromArgb(255, 210, 150);
+            ExitBtn.Cursor = Cursors.Hand;
             ExitBtn.FlatAppearance.BorderColor = Color.FromArgb(128, 64, 0);
             ExitBtn.FlatAppearance.BorderSize = 3;
             ExitBtn.FlatStyle = FlatStyle.Flat;
@@ -56,22 +62,68 @@
             ExitBtn.Text = "< Back";
             ExitBtn.UseVisualStyleBackColor = false;
             // 
+            // listBox1
+            // 
+            listBox1.FormattingEnabled = true;
+            listBox1.ItemHeight = 15;
+            listBox1.Location = new Point(91, 114);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new Size(451, 259);
+            listBox1.TabIndex = 4;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(613, 179);
+            button2.Name = "button2";
+            button2.Size = new Size(114, 23);
+            button2.TabIndex = 5;
+            button2.Text = "Edit question";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            button3.Location = new Point(613, 239);
+            button3.Name = "button3";
+            button3.Size = new Size(114, 23);
+            button3.TabIndex = 6;
+            button3.Text = "Delete question";
+            button3.UseVisualStyleBackColor = true;
+            // 
+            // GameTitle
+            // 
+            GameTitle.AutoSize = true;
+            GameTitle.Font = new Font("Algerian", 15F);
+            GameTitle.Location = new Point(91, 79);
+            GameTitle.Name = "GameTitle";
+            GameTitle.Size = new Size(187, 22);
+            GameTitle.TabIndex = 7;
+            GameTitle.Text = "Game's questions";
+            // 
             // GameManagementScene
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Transparent;
-            BackgroundImage = Properties.Resources._71IDn3yU0mL__UF894_1000_QL80_;
+            BackgroundImage = Properties.Resources.blurredBackground;
+            Controls.Add(GameTitle);
+            Controls.Add(button3);
+            Controls.Add(button2);
+            Controls.Add(listBox1);
             Controls.Add(ExitBtn);
-            Controls.Add(button1);
+            Controls.Add(AddQuestionBtn);
             Name = "GameManagementScene";
             Size = new Size(816, 489);
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
-        private Button button1;
+        public Button AddQuestionBtn;
         public Button ExitBtn;
+        private ListBox listBox1;
+        private Button button2;
+        private Button button3;
+        private Label GameTitle;
     }
 }

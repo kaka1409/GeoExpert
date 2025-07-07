@@ -34,11 +34,18 @@
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             label2 = new Label();
             NoGameMessage = new Label();
+            NewGamePopup = new Panel();
+            CloseGameTitlePopupBtn = new Button();
+            label1 = new Label();
+            GameNameInput = new TextBox();
+            ConfirmGameBtn = new Button();
+            NewGamePopup.SuspendLayout();
             SuspendLayout();
             // 
             // ExitBtn
             // 
             ExitBtn.BackColor = Color.FromArgb(255, 210, 150);
+            ExitBtn.Cursor = Cursors.Hand;
             ExitBtn.FlatAppearance.BorderColor = Color.FromArgb(128, 64, 0);
             ExitBtn.FlatAppearance.BorderSize = 3;
             ExitBtn.FlatStyle = FlatStyle.Flat;
@@ -53,6 +60,7 @@
             // NewGameBtn
             // 
             NewGameBtn.BackColor = Color.FromArgb(128, 64, 0);
+            NewGameBtn.Cursor = Cursors.Hand;
             NewGameBtn.FlatAppearance.BorderColor = Color.FromArgb(128, 64, 0);
             NewGameBtn.FlatAppearance.BorderSize = 0;
             NewGameBtn.FlatStyle = FlatStyle.Flat;
@@ -101,11 +109,78 @@
             NoGameMessage.TabIndex = 0;
             NoGameMessage.Text = "You currently have no games, Create new game?";
             // 
+            // NewGamePopup
+            // 
+            NewGamePopup.BackColor = Color.FromArgb(255, 210, 150);
+            NewGamePopup.BorderStyle = BorderStyle.FixedSingle;
+            NewGamePopup.Controls.Add(CloseGameTitlePopupBtn);
+            NewGamePopup.Controls.Add(label1);
+            NewGamePopup.Controls.Add(GameNameInput);
+            NewGamePopup.Controls.Add(ConfirmGameBtn);
+            NewGamePopup.Location = new Point(303, 160);
+            NewGamePopup.Name = "NewGamePopup";
+            NewGamePopup.Size = new Size(238, 132);
+            NewGamePopup.TabIndex = 7;
+            NewGamePopup.Visible = false;
+            // 
+            // CloseGameTitlePopupBtn
+            // 
+            CloseGameTitlePopupBtn.BackColor = Color.FromArgb(255, 210, 150);
+            CloseGameTitlePopupBtn.Cursor = Cursors.Hand;
+            CloseGameTitlePopupBtn.FlatAppearance.BorderSize = 0;
+            CloseGameTitlePopupBtn.FlatStyle = FlatStyle.Flat;
+            CloseGameTitlePopupBtn.Font = new Font("Algerian", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            CloseGameTitlePopupBtn.Location = new Point(207, 3);
+            CloseGameTitlePopupBtn.Name = "CloseGameTitlePopupBtn";
+            CloseGameTitlePopupBtn.Size = new Size(28, 28);
+            CloseGameTitlePopupBtn.TabIndex = 3;
+            CloseGameTitlePopupBtn.Text = "X";
+            CloseGameTitlePopupBtn.UseVisualStyleBackColor = false;
+            CloseGameTitlePopupBtn.Click += CloseGameTitlePopupBtn_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Algerian", 12F);
+            label1.Location = new Point(14, 32);
+            label1.Name = "label1";
+            label1.Size = new Size(152, 18);
+            label1.TabIndex = 2;
+            label1.Text = "Enter game title";
+            // 
+            // GameNameInput
+            // 
+            GameNameInput.BackColor = Color.FromArgb(255, 210, 150);
+            GameNameInput.BorderStyle = BorderStyle.FixedSingle;
+            GameNameInput.Cursor = Cursors.Hand;
+            GameNameInput.Font = new Font("Algerian", 9F);
+            GameNameInput.Location = new Point(14, 56);
+            GameNameInput.Name = "GameNameInput";
+            GameNameInput.Size = new Size(212, 23);
+            GameNameInput.TabIndex = 1;
+            // 
+            // ConfirmGameBtn
+            // 
+            ConfirmGameBtn.BackColor = Color.FromArgb(128, 64, 0);
+            ConfirmGameBtn.Cursor = Cursors.Hand;
+            ConfirmGameBtn.FlatAppearance.BorderSize = 0;
+            ConfirmGameBtn.FlatStyle = FlatStyle.Flat;
+            ConfirmGameBtn.Font = new Font("Algerian", 10F);
+            ConfirmGameBtn.ForeColor = Color.FromArgb(255, 210, 150);
+            ConfirmGameBtn.Location = new Point(87, 91);
+            ConfirmGameBtn.Name = "ConfirmGameBtn";
+            ConfirmGameBtn.Size = new Size(75, 30);
+            ConfirmGameBtn.TabIndex = 0;
+            ConfirmGameBtn.Text = "Done";
+            ConfirmGameBtn.UseVisualStyleBackColor = false;
+            ConfirmGameBtn.Click += ConfirmGameBtn_Click;
+            // 
             // CreateScene
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = Properties.Resources._71IDn3yU0mL__UF894_1000_QL80_;
+            BackgroundImage = Properties.Resources.blurredBackground;
+            Controls.Add(NewGamePopup);
             Controls.Add(NoGameMessage);
             Controls.Add(label2);
             Controls.Add(GameListConainer);
@@ -114,6 +189,8 @@
             Name = "CreateScene";
             Size = new Size(816, 489);
             Load += CreateScene_Load;
+            NewGamePopup.ResumeLayout(false);
+            NewGamePopup.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -125,5 +202,10 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private Label label2;
         public Label NoGameMessage;
+        public Button ConfirmGameBtn;
+        private Button CloseGameTitlePopupBtn;
+        private Label label1;
+        private TextBox GameNameInput;
+        public Panel NewGamePopup;
     }
 }

@@ -2,66 +2,68 @@
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-public class RoundedPanel : Panel
-{
-    private int _radius = 6;
-    private Color _borderColor = Color.FromArgb(128, 64, 0);
-    private float _borderThickness = 5;
-
-    public int Radius
+namespace GeoExpert {
+    public class RoundedPanel : Panel
     {
-        get => _radius;
-        set { _radius = value; Invalidate(); }
-    }
+        private int _radius = 6;
+        private Color _borderColor = Color.FromArgb(128, 64, 0);
+        private float _borderThickness = 5;
 
-    public Color BorderColor
-    {
-        get => _borderColor;
-        set { _borderColor = value; Invalidate(); }
-    }
-
-    public float BorderThickness
-    {
-        get => _borderThickness;
-        set { _borderThickness = value; Invalidate(); }
-    }
-
-    public RoundedPanel()
-    {
-        DoubleBuffered = true;
-    }
-
-    private GraphicsPath GetRoundedRectanglePath(Rectangle rect, int radius)
-    {
-        GraphicsPath path = new GraphicsPath();
-        float diameter = radius * 2f;
-
-        path.StartFigure();
-        path.AddArc(rect.X, rect.Y, diameter, diameter, 180, 90);
-        path.AddArc(rect.Right - diameter, rect.Y, diameter, diameter, 270, 90);
-        path.AddArc(rect.Right - diameter, rect.Bottom - diameter, diameter, diameter, 0, 90);
-        path.AddArc(rect.X, rect.Bottom - diameter, diameter, diameter, 90, 90);
-        path.CloseFigure();
-
-        return path;
-    }
-
-    protected override void OnPaint(PaintEventArgs e)
-    {
-        base.OnPaint(e);
-
-        e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-
-        Rectangle rect = new Rectangle(0, 0, Width - 1, Height - 1);
-        using (GraphicsPath path = GetRoundedRectanglePath(rect, Radius))
+        public int Radius
         {
-            // Set the panel's shape to rounded rectangle
-            Region = new Region(path);
+            get => _radius;
+            set { _radius = value; Invalidate(); }
+        }
 
-            // Draw border with specified color and thickness
-            using (Pen pen = new Pen(BorderColor, BorderThickness))
+        public Color BorderColor
+        {
+            get => _borderColor;
+            set { _borderColor = value; Invalidate(); }
+        }
+
+        public float BorderThickness
+        {
+            get => _borderThickness;
+            set { _borderThickness = value; Invalidate(); }
+        }
+
+        public RoundedPanel()
+        {
+            DoubleBuffered = true;
+        }
+
+        private GraphicsPath GetRoundedRectanglePath(Rectangle rect, int radius)
+        {
+            GraphicsPath path = new GraphicsPath();
+            float diameter = radius * 2f;
+
+            path.StartFigure();
+            path.AddArc(rect.X, rect.Y, diameter, diameter, 180, 90);
+            path.AddArc(rect.Right - diameter, rect.Y, diameter, diameter, 270, 90);
+            path.AddArc(rect.Right - diameter, rect.Bottom - diameter, diameter, diameter, 0, 90);
+            path.AddArc(rect.X, rect.Bottom - diameter, diameter, diameter, 90, 90);
+            path.CloseFigure();
+
+            return path;
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+
+            Rectangle rect = new Rectangle(0, 0, Width - 1, Height - 1);
+            using (GraphicsPath path = GetRoundedRectanglePath(rect, Radius))
             {
-                e.Graphics.DrawPath(pen, path);
+                // Set the panel's shape to rounded rectangle
+                Region = new Region(path);
+
+                // Draw border with specified color and thickness
+                using (Pen pen = new Pen(BorderColor, BorderThickness))
+                {
+                    e.Graphics.DrawPath(pen, path);
+                }
             }
         }
     }

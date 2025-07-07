@@ -33,7 +33,6 @@
             ExitBtn = new Button();
             imageList1 = new ImageList(components);
             flowLayoutPanel1 = new FlowLayoutPanel();
-            textBox1 = new TextBox();
             SuspendLayout();
             // 
             // label1
@@ -49,6 +48,7 @@
             // ExitBtn
             // 
             ExitBtn.BackColor = Color.FromArgb(255, 210, 150);
+            ExitBtn.Cursor = Cursors.Hand;
             ExitBtn.FlatAppearance.BorderColor = Color.FromArgb(128, 64, 0);
             ExitBtn.FlatAppearance.BorderSize = 3;
             ExitBtn.FlatStyle = FlatStyle.Flat;
@@ -69,25 +69,17 @@
             // 
             // flowLayoutPanel1
             // 
-            flowLayoutPanel1.Location = new Point(188, 135);
+            flowLayoutPanel1.Location = new Point(127, 88);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(337, 190);
+            flowLayoutPanel1.Size = new Size(568, 335);
             flowLayoutPanel1.TabIndex = 2;
             flowLayoutPanel1.Paint += flowLayoutPanel1_Paint;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(638, 248);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 23);
-            textBox1.TabIndex = 3;
             // 
             // PlayScene
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = Properties.Resources._71IDn3yU0mL__UF894_1000_QL80_;
-            Controls.Add(textBox1);
+            BackgroundImage = Properties.Resources.blurredBackground;
             Controls.Add(flowLayoutPanel1);
             Controls.Add(ExitBtn);
             Controls.Add(label1);
@@ -104,6 +96,5 @@
         public Button ExitBtn;
         private ImageList imageList1;
         private FlowLayoutPanel flowLayoutPanel1;
-        private TextBox textBox1;
     }
 }

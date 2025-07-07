@@ -47,6 +47,7 @@
             // CreateBtn
             // 
             CreateBtn.BackColor = Color.FromArgb(255, 210, 150);
+            CreateBtn.Cursor = Cursors.Hand;
             CreateBtn.FlatAppearance.BorderColor = Color.FromArgb(128, 64, 0);
             CreateBtn.FlatAppearance.BorderSize = 3;
             CreateBtn.FlatStyle = FlatStyle.Flat;
@@ -62,6 +63,7 @@
             // PlayBtn
             // 
             PlayBtn.BackColor = Color.FromArgb(255, 210, 150);
+            PlayBtn.Cursor = Cursors.Hand;
             PlayBtn.FlatAppearance.BorderColor = Color.FromArgb(128, 64, 0);
             PlayBtn.FlatAppearance.BorderSize = 3;
             PlayBtn.FlatStyle = FlatStyle.Flat;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 using System.Windows.Forms;
 
 
@@ -7,7 +8,7 @@ namespace GeoExpert
 {
     public partial class AppForm : Form
     {
-        private readonly Dictionary<string, UserControl> Pages = new();
+        private readonly Dictionary<string, UserControl> pages = new();
 
 
         public AppForm()
@@ -19,41 +20,56 @@ namespace GeoExpert
         private void SetupPage()
         {
             // Create scene instances
-            var MenuScene = new MenuScene();
-            var PlayScene = new PlayScene();
-            var CreateScene = new CreateScene();
-            var GameManagementScene = new GameManagementScene();
+            var menuScene = new MenuScene();
+            var playScene = new PlayScene();
+            var createScene = new CreateScene();
+            var gameManagementScene = new GameManagementScene();
+            var questionManagementScene = new QuestionManagementScene();
 
             // Navigation events
-            MenuScene.PlayBtn.Click += (s, e) => ShowPage("Play");
-            MenuScene.CreateBtn.Click += (s, e) => ShowPage("Create");
-            PlayScene.ExitBtn.Click += (s, e) => ShowPage("Menu");
-            CreateScene.ExitBtn.Click += (s, e) => ShowPage("Menu");
-            GameManagementScene.ExitBtn.Click += (s, e) => ShowPage("Create");
+            menuScene.PlayBtn.Click += (s, e) => ShowPage("Play");
+            menuScene.CreateBtn.Click += (s, e) => ShowPage("Create");
+            playScene.ExitBtn.Click += (s, e) => ShowPage("Menu");
+            createScene.ExitBtn.Click += (s, e) => ShowPage("Menu");
+            gameManagementScene.ExitBtn.Click += (s, e) => ShowPage("Create");
+            gameManagementScene.AddQuestionBtn.Click += (s, e) => ShowPage("QuestionManage");
+            questionManagementScene.ExitBtn.Click += (s, e) => ShowPage("GameManage");
 
             // functionality events
-            CreateScene.NewGameBtn.Click += (s, e) => 
-            {     
-                foreach (Control GamePanel in CreateScene.GameListConainer.Controls)
+            createScene.ConfirmGameBtn.Click += (s, e) => 
+            {
+                foreach (Control gamePanel in createScene.GameListConainer.Controls)
                 {
-                    GamePanel.Click += (s, e) => ShowPage("GameManage");
+                    gamePanel.Click += (s, e) =>
+                    {
+                        ShowPage("GameManage");
+                        gameManagementScene.CurrentGame = createScene.FindGame(gamePanel.Name);
+                        gameManagementScene.UpdateWidgetInfo();
+                    };
                 }
             };
 
-            Pages["Menu"] = MenuScene;
-            Pages["Play"] = PlayScene;
-            Pages["Create"] = CreateScene;
-            Pages["GameManage"] = GameManagementScene;
+            // Load event
+            gameManagementScene.Load += (s, e) => 
+            {
+
+            };
+
+            pages["Menu"] = menuScene;
+            pages["Play"] = playScene;
+            pages["Create"] = createScene;
+            pages["GameManage"] = gameManagementScene;
+            pages["QuestionManage"] = questionManagementScene;
 
             // Add all pages to the form, but they start hidden
-            foreach (var Page in Pages.Values)
-                Controls.Add(Page);
+            foreach (var page in pages.Values)
+                Controls.Add(page);
         }
 
         public void ShowPage(string key)
         {
-            foreach (var Page in Pages)
-                Page.Value.Visible = Page.Key == key;
+            foreach (var page in pages)
+                page.Value.Visible = page.Key == key;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -65,12 +81,14 @@ namespace GeoExpert
 
     abstract class Question
     {
-        private int id { get; set; }
-        private string content { get; set; }
+        private int id;
+        public int Id { get; set; }
+        private string content;
+        public string Content { get; set; }
         private string[] answers { get; set; }
         private string correctAnswer { get; set; }
 
-        public abstract bool checkAnswer();
+        public abstract bool CheckAnswer();
 
         public abstract string getAnswer();
 
@@ -78,7 +96,7 @@ namespace GeoExpert
 
     class TFQuestion : Question
     {
-        public override bool checkAnswer()
+        public override bool CheckAnswer()
         {
             return true;
         }
@@ -91,7 +109,7 @@ namespace GeoExpert
 
     class MultiChoiceQuestion : Question
     {
-        public override bool checkAnswer()
+        public override bool CheckAnswer()
         {
             return true;
         }
@@ -104,7 +122,7 @@ namespace GeoExpert
 
     class OpenEndedQuestion : Question
     {
-        public override bool checkAnswer()
+        public override bool CheckAnswer()
         {
             return true;
         }
@@ -117,20 +135,29 @@ namespace GeoExpert
 
     class Game
     {
-        private string id { get; set; }
-        private string title { get; set; } = "Untitled";
-        private Question[] questions { get; set; }
-        private int questionNumber { get; set; }
-        private DateTime time { get; set; }
-        private int score { get; set; }
-        private DateTime createDate { get; set; }
+        private string id;
+        public string Id { get; set; }
+        private string title;
+        public string Title { get; set; }
+        private Question[] questions;
+        private int questionNumber;
+        public int QuestionNumber { get; set; }
+        private TimeSpan time { get; set; }
+        private int score;
+        public int Score { get; set; }
+        private DateTime createDate;
+        public DateTime CreateDate { get; set; }
         private DateTime LastPlayed { get; set; }
-        private bool isFinished { get; set; }
+        private bool isFinished;
+        public bool IsFinished { get; set; }
 
         public Game() { }
         
+        public void AddQuestion()
+        {
 
-    
+        }
+        
     
     }
     
