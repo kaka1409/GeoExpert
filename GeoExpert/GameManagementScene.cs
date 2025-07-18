@@ -28,17 +28,40 @@ namespace GeoExpert
 
         private void GameManagementScene_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         public void UpdateWidgetInfo()
         {
             SetGameTitle();
+            ListQuestion();
         }
 
         public void SetGameTitle()
         {
             GameTitle.Text = CurrentGame.Title + "'s questions";
+        }
+
+        public void ListQuestion()
+        {
+            QuestionList.Items.Clear();
+
+            foreach (Question question in CurrentGame.Questions)
+            {
+                if (question != null)
+                {
+                    QuestionList.Items.Add($"[{question.Type}] {question.Content}");
+                }
+            }
+        }
+
+        private void DeleteQuestionBtn_Click(object sender, EventArgs e)
+        {
+            if (QuestionList.SelectedItem != null)
+            {
+                CurrentGame.RemoveQuestion(QuestionList.SelectedIndex);
+                QuestionList.Items.Remove(QuestionList.SelectedItem);
+            }
         }
     }
 }

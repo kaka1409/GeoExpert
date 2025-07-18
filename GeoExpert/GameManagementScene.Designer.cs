@@ -30,9 +30,9 @@
         {
             AddQuestionBtn = new Button();
             ExitBtn = new Button();
-            listBox1 = new ListBox();
+            QuestionList = new ListBox();
             button2 = new Button();
-            button3 = new Button();
+            DeleteQuestionBtn = new Button();
             GameTitle = new Label();
             SuspendLayout();
             // 
@@ -62,14 +62,14 @@
             ExitBtn.Text = "< Back";
             ExitBtn.UseVisualStyleBackColor = false;
             // 
-            // listBox1
+            // QuestionList
             // 
-            listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 15;
-            listBox1.Location = new Point(91, 114);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(451, 259);
-            listBox1.TabIndex = 4;
+            QuestionList.FormattingEnabled = true;
+            QuestionList.ItemHeight = 15;
+            QuestionList.Location = new Point(91, 114);
+            QuestionList.Name = "QuestionList";
+            QuestionList.Size = new Size(451, 259);
+            QuestionList.TabIndex = 4;
             // 
             // button2
             // 
@@ -80,14 +80,15 @@
             button2.Text = "Edit question";
             button2.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // DeleteQuestionBtn
             // 
-            button3.Location = new Point(613, 239);
-            button3.Name = "button3";
-            button3.Size = new Size(114, 23);
-            button3.TabIndex = 6;
-            button3.Text = "Delete question";
-            button3.UseVisualStyleBackColor = true;
+            DeleteQuestionBtn.Location = new Point(613, 239);
+            DeleteQuestionBtn.Name = "DeleteQuestionBtn";
+            DeleteQuestionBtn.Size = new Size(114, 23);
+            DeleteQuestionBtn.TabIndex = 6;
+            DeleteQuestionBtn.Text = "Delete question";
+            DeleteQuestionBtn.UseVisualStyleBackColor = true;
+            DeleteQuestionBtn.Click += DeleteQuestionBtn_Click;
             // 
             // GameTitle
             // 
@@ -106,9 +107,9 @@
             BackColor = Color.Transparent;
             BackgroundImage = Properties.Resources.blurredBackground;
             Controls.Add(GameTitle);
-            Controls.Add(button3);
+            Controls.Add(DeleteQuestionBtn);
             Controls.Add(button2);
-            Controls.Add(listBox1);
+            Controls.Add(QuestionList);
             Controls.Add(ExitBtn);
             Controls.Add(AddQuestionBtn);
             Name = "GameManagementScene";
@@ -121,9 +122,9 @@
 
         public Button AddQuestionBtn;
         public Button ExitBtn;
-        private ListBox listBox1;
+        private ListBox QuestionList;
         private Button button2;
-        private Button button3;
+        private Button DeleteQuestionBtn;
         private Label GameTitle;
     }
 }

@@ -31,17 +31,19 @@
             ExitBtn = new Button();
             QuestionTypeCB = new ComboBox();
             label1 = new Label();
-            richTextBox1 = new RichTextBox();
-            radioButton1 = new RadioButton();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            radioButton2 = new RadioButton();
-            textBox3 = new TextBox();
-            radioButton3 = new RadioButton();
-            textBox4 = new TextBox();
-            radioButton4 = new RadioButton();
-            label2 = new Label();
-            button1 = new Button();
+            QuestionInput = new RichTextBox();
+            SaveBtn = new Button();
+            MultiChoicePanel = new Panel();
+            CorrectAnswerIndicator = new Label();
+            AnswerInput4 = new TextBox();
+            Radio4 = new RadioButton();
+            AnswerInput3 = new TextBox();
+            Radio3 = new RadioButton();
+            AnswerInput2 = new TextBox();
+            Radio2 = new RadioButton();
+            AnswerInput1 = new TextBox();
+            Radio1 = new RadioButton();
+            MultiChoicePanel.SuspendLayout();
             SuspendLayout();
             // 
             // ExitBtn
@@ -61,11 +63,14 @@
             // 
             // QuestionTypeCB
             // 
-            QuestionTypeCB.DropDownStyle = ComboBoxStyle.DropDownList;
+            QuestionTypeCB.BackColor = Color.FromArgb(255, 210, 150);
+            QuestionTypeCB.FlatStyle = FlatStyle.Flat;
+            QuestionTypeCB.Font = new Font("Algerian", 10F);
+            QuestionTypeCB.ForeColor = SystemColors.ActiveCaptionText;
             QuestionTypeCB.FormattingEnabled = true;
-            QuestionTypeCB.Location = new Point(239, 67);
+            QuestionTypeCB.Location = new Point(282, 67);
             QuestionTypeCB.Name = "QuestionTypeCB";
-            QuestionTypeCB.Size = new Size(121, 23);
+            QuestionTypeCB.Size = new Size(170, 23);
             QuestionTypeCB.TabIndex = 5;
             QuestionTypeCB.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
@@ -73,129 +78,185 @@
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Algerian", 10F);
             label1.Location = new Point(111, 70);
             label1.Name = "label1";
-            label1.Size = new Size(122, 15);
+            label1.Size = new Size(165, 15);
             label1.TabIndex = 6;
             label1.Text = "Choose question type";
             // 
-            // richTextBox1
+            // QuestionInput
             // 
-            richTextBox1.Location = new Point(111, 96);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(585, 120);
-            richTextBox1.TabIndex = 7;
-            richTextBox1.Text = "";
+            QuestionInput.BackColor = Color.FromArgb(255, 210, 150);
+            QuestionInput.BorderStyle = BorderStyle.None;
+            QuestionInput.Font = new Font("Algerian", 10F);
+            QuestionInput.Location = new Point(111, 96);
+            QuestionInput.Name = "QuestionInput";
+            QuestionInput.Size = new Size(585, 120);
+            QuestionInput.TabIndex = 7;
+            QuestionInput.Text = "";
+            QuestionInput.TextChanged += richTextBox1_TextChanged;
             // 
-            // radioButton1
+            // SaveBtn
             // 
-            radioButton1.AutoSize = true;
-            radioButton1.Location = new Point(111, 250);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(14, 13);
-            radioButton1.TabIndex = 8;
-            radioButton1.TabStop = true;
-            radioButton1.UseVisualStyleBackColor = true;
+            SaveBtn.BackColor = Color.FromArgb(255, 210, 150);
+            SaveBtn.FlatAppearance.BorderColor = Color.FromArgb(128, 64, 0);
+            SaveBtn.FlatAppearance.BorderSize = 3;
+            SaveBtn.FlatStyle = FlatStyle.Flat;
+            SaveBtn.Font = new Font("Algerian", 10F);
+            SaveBtn.Location = new Point(110, 401);
+            SaveBtn.Name = "SaveBtn";
+            SaveBtn.Size = new Size(75, 32);
+            SaveBtn.TabIndex = 17;
+            SaveBtn.Text = "Save ";
+            SaveBtn.UseVisualStyleBackColor = false;
+            SaveBtn.Click += SaveBtn_Clicked;
             // 
-            // textBox1
+            // MultiChoicePanel
             // 
-            textBox1.Location = new Point(143, 246);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(553, 23);
-            textBox1.TabIndex = 9;
+            MultiChoicePanel.BackColor = Color.Transparent;
+            MultiChoicePanel.Controls.Add(CorrectAnswerIndicator);
+            MultiChoicePanel.Controls.Add(AnswerInput4);
+            MultiChoicePanel.Controls.Add(Radio4);
+            MultiChoicePanel.Controls.Add(AnswerInput3);
+            MultiChoicePanel.Controls.Add(Radio3);
+            MultiChoicePanel.Controls.Add(AnswerInput2);
+            MultiChoicePanel.Controls.Add(Radio2);
+            MultiChoicePanel.Controls.Add(AnswerInput1);
+            MultiChoicePanel.Controls.Add(Radio1);
+            MultiChoicePanel.Location = new Point(0, 261);
+            MultiChoicePanel.Name = "MultiChoicePanel";
+            MultiChoicePanel.Size = new Size(707, 120);
+            MultiChoicePanel.TabIndex = 18;
+            MultiChoicePanel.Visible = false;
+            MultiChoicePanel.Paint += MultiChoicePanel_Paint;
             // 
-            // textBox2
+            // CorrectAnswerIndicator
             // 
-            textBox2.Location = new Point(143, 275);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(553, 23);
-            textBox2.TabIndex = 11;
+            CorrectAnswerIndicator.AutoSize = true;
+            CorrectAnswerIndicator.BackColor = Color.Transparent;
+            CorrectAnswerIndicator.Font = new Font("Algerian", 7F);
+            CorrectAnswerIndicator.ForeColor = Color.Green;
+            CorrectAnswerIndicator.Location = new Point(1, 4);
+            CorrectAnswerIndicator.Name = "CorrectAnswerIndicator";
+            CorrectAnswerIndicator.Size = new Size(103, 11);
+            CorrectAnswerIndicator.TabIndex = 25;
+            CorrectAnswerIndicator.Text = "Correct answer ✔️";
             // 
-            // radioButton2
+            // AnswerInput4
             // 
-            radioButton2.AutoSize = true;
-            radioButton2.Location = new Point(111, 279);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(14, 13);
-            radioButton2.TabIndex = 10;
-            radioButton2.TabStop = true;
-            radioButton2.UseVisualStyleBackColor = true;
+            AnswerInput4.BackColor = Color.FromArgb(255, 210, 150);
+            AnswerInput4.BorderStyle = BorderStyle.FixedSingle;
+            AnswerInput4.Font = new Font("Algerian", 9F);
+            AnswerInput4.Location = new Point(142, 87);
+            AnswerInput4.Name = "AnswerInput4";
+            AnswerInput4.Size = new Size(553, 23);
+            AnswerInput4.TabIndex = 24;
+            AnswerInput4.TextChanged += AnswerInput4_TextChanged;
             // 
-            // textBox3
+            // Radio4
             // 
-            textBox3.Location = new Point(143, 304);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(553, 23);
-            textBox3.TabIndex = 13;
+            Radio4.AutoSize = true;
+            Radio4.BackColor = Color.FromArgb(255, 210, 150);
+            Radio4.FlatStyle = FlatStyle.Flat;
+            Radio4.Location = new Point(110, 91);
+            Radio4.Name = "Radio4";
+            Radio4.Size = new Size(13, 12);
+            Radio4.TabIndex = 23;
+            Radio4.TabStop = true;
+            Radio4.UseVisualStyleBackColor = false;
+            Radio4.CheckedChanged += Radio4_CheckedChanged;
             // 
-            // radioButton3
+            // AnswerInput3
             // 
-            radioButton3.AutoSize = true;
-            radioButton3.Location = new Point(111, 308);
-            radioButton3.Name = "radioButton3";
-            radioButton3.Size = new Size(14, 13);
-            radioButton3.TabIndex = 12;
-            radioButton3.TabStop = true;
-            radioButton3.UseVisualStyleBackColor = true;
+            AnswerInput3.BackColor = Color.FromArgb(255, 210, 150);
+            AnswerInput3.BorderStyle = BorderStyle.FixedSingle;
+            AnswerInput3.Font = new Font("Algerian", 9F);
+            AnswerInput3.Location = new Point(142, 58);
+            AnswerInput3.Name = "AnswerInput3";
+            AnswerInput3.Size = new Size(553, 23);
+            AnswerInput3.TabIndex = 22;
+            AnswerInput3.TextChanged += AnswerInput3_TextChanged;
             // 
-            // textBox4
+            // Radio3
             // 
-            textBox4.Location = new Point(143, 333);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(553, 23);
-            textBox4.TabIndex = 15;
+            Radio3.AutoSize = true;
+            Radio3.BackColor = Color.FromArgb(255, 210, 150);
+            Radio3.FlatStyle = FlatStyle.Flat;
+            Radio3.Location = new Point(110, 62);
+            Radio3.Name = "Radio3";
+            Radio3.Size = new Size(13, 12);
+            Radio3.TabIndex = 21;
+            Radio3.TabStop = true;
+            Radio3.UseVisualStyleBackColor = false;
+            Radio3.CheckedChanged += Radio3_CheckedChanged;
             // 
-            // radioButton4
+            // AnswerInput2
             // 
-            radioButton4.AutoSize = true;
-            radioButton4.Location = new Point(111, 337);
-            radioButton4.Name = "radioButton4";
-            radioButton4.Size = new Size(14, 13);
-            radioButton4.TabIndex = 14;
-            radioButton4.TabStop = true;
-            radioButton4.UseVisualStyleBackColor = true;
+            AnswerInput2.BackColor = Color.FromArgb(255, 210, 150);
+            AnswerInput2.BorderStyle = BorderStyle.FixedSingle;
+            AnswerInput2.Font = new Font("Algerian", 9F);
+            AnswerInput2.Location = new Point(142, 29);
+            AnswerInput2.Name = "AnswerInput2";
+            AnswerInput2.Size = new Size(553, 23);
+            AnswerInput2.TabIndex = 20;
+            AnswerInput2.TextChanged += AnswerInput2_TextChanged;
             // 
-            // label2
+            // Radio2
             // 
-            label2.AutoSize = true;
-            label2.BackColor = Color.Transparent;
-            label2.Location = new Point(4, 246);
-            label2.Name = "label2";
-            label2.Size = new Size(101, 15);
-            label2.TabIndex = 16;
-            label2.Text = "Correct answer ✔️";
+            Radio2.AutoSize = true;
+            Radio2.BackColor = Color.FromArgb(255, 210, 150);
+            Radio2.FlatStyle = FlatStyle.Flat;
+            Radio2.Location = new Point(110, 33);
+            Radio2.Name = "Radio2";
+            Radio2.Size = new Size(13, 12);
+            Radio2.TabIndex = 19;
+            Radio2.TabStop = true;
+            Radio2.UseVisualStyleBackColor = false;
+            Radio2.CheckedChanged += Radio2_CheckedChanged;
             // 
-            // button1
+            // AnswerInput1
             // 
-            button1.Location = new Point(111, 387);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 17;
-            button1.Text = "Save ";
-            button1.UseVisualStyleBackColor = true;
+            AnswerInput1.BackColor = Color.FromArgb(255, 210, 150);
+            AnswerInput1.BorderStyle = BorderStyle.FixedSingle;
+            AnswerInput1.Font = new Font("Algerian", 9F);
+            AnswerInput1.Location = new Point(142, 0);
+            AnswerInput1.Name = "AnswerInput1";
+            AnswerInput1.Size = new Size(553, 23);
+            AnswerInput1.TabIndex = 18;
+            AnswerInput1.TextChanged += AnswerInput1_TextChanged;
+            // 
+            // Radio1
+            // 
+            Radio1.AutoSize = true;
+            Radio1.BackColor = Color.FromArgb(255, 210, 150);
+            Radio1.FlatAppearance.BorderColor = Color.FromArgb(128, 64, 0);
+            Radio1.FlatAppearance.BorderSize = 2;
+            Radio1.FlatStyle = FlatStyle.Flat;
+            Radio1.Location = new Point(111, 5);
+            Radio1.Name = "Radio1";
+            Radio1.Size = new Size(13, 12);
+            Radio1.TabIndex = 17;
+            Radio1.TabStop = true;
+            Radio1.UseVisualStyleBackColor = false;
+            Radio1.CheckedChanged += Radio1_CheckedChanged;
             // 
             // QuestionManagementScene
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = Properties.Resources.blurredBackground;
-            Controls.Add(button1);
-            Controls.Add(label2);
-            Controls.Add(textBox4);
-            Controls.Add(radioButton4);
-            Controls.Add(textBox3);
-            Controls.Add(radioButton3);
-            Controls.Add(textBox2);
-            Controls.Add(radioButton2);
-            Controls.Add(textBox1);
-            Controls.Add(radioButton1);
-            Controls.Add(richTextBox1);
+            Controls.Add(MultiChoicePanel);
+            Controls.Add(SaveBtn);
+            Controls.Add(QuestionInput);
             Controls.Add(label1);
             Controls.Add(QuestionTypeCB);
             Controls.Add(ExitBtn);
             Name = "QuestionManagementScene";
             Size = new Size(816, 489);
             Load += QuestionManagementScene_Load;
+            MultiChoicePanel.ResumeLayout(false);
+            MultiChoicePanel.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -205,16 +266,17 @@
         public Button ExitBtn;
         private ComboBox QuestionTypeCB;
         private Label label1;
-        private RichTextBox richTextBox1;
-        private RadioButton radioButton1;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private RadioButton radioButton2;
-        private TextBox textBox3;
-        private RadioButton radioButton3;
-        private TextBox textBox4;
-        private RadioButton radioButton4;
-        private Label label2;
-        private Button button1;
+        private RichTextBox QuestionInput;
+        public Button SaveBtn;
+        private Panel MultiChoicePanel;
+        private Label CorrectAnswerIndicator;
+        private TextBox AnswerInput4;
+        private RadioButton Radio4;
+        private TextBox AnswerInput3;
+        private RadioButton Radio3;
+        private TextBox AnswerInput2;
+        private RadioButton Radio2;
+        private TextBox AnswerInput1;
+        private RadioButton Radio1;
     }
 }

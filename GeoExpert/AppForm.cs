@@ -49,10 +49,11 @@ namespace GeoExpert
                 }
             };
 
-            // Load event
-            gameManagementScene.Load += (s, e) => 
+            questionManagementScene.SaveBtn.Click += (s, e) =>
             {
-
+                gameManagementScene.CurrentGame.Questions.Add(questionManagementScene.question);
+                gameManagementScene.UpdateWidgetInfo();
+                questionManagementScene.ResetQuestionInputs();
             };
 
             pages["Menu"] = menuScene;
@@ -83,10 +84,14 @@ namespace GeoExpert
     {
         private int id;
         public int Id { get; set; }
+        private string type;
+        public string Type { get; set; }
         private string content;
         public string Content { get; set; }
-        private string[] answers { get; set; }
-        private string correctAnswer { get; set; }
+        private List<string> answers = new List<string>();
+        public List<string> Answers { get; set; }
+        private int correctAnswer;
+        public int CorrectAnswer { get; set; }
 
         public abstract bool CheckAnswer();
 
@@ -96,6 +101,11 @@ namespace GeoExpert
 
     class TFQuestion : Question
     {
+        public TFQuestion()
+        {
+            Type = "True/False";
+        }
+
         public override bool CheckAnswer()
         {
             return true;
@@ -109,6 +119,11 @@ namespace GeoExpert
 
     class MultiChoiceQuestion : Question
     {
+        public MultiChoiceQuestion ()
+        {
+           Type = "Multiple choices";
+        }
+
         public override bool CheckAnswer()
         {
             return true;
@@ -122,6 +137,11 @@ namespace GeoExpert
 
     class OpenEndedQuestion : Question
     {
+
+        public OpenEndedQuestion()
+        {
+            Type = "Open-ended";
+        }
         public override bool CheckAnswer()
         {
             return true;
@@ -139,7 +159,9 @@ namespace GeoExpert
         public string Id { get; set; }
         private string title;
         public string Title { get; set; }
-        private Question[] questions;
+        private List<Question> questions;
+        public List<Question> Questions { get; set; } = new List<Question>();
+
         private int questionNumber;
         public int QuestionNumber { get; set; }
         private TimeSpan time { get; set; }
@@ -156,6 +178,11 @@ namespace GeoExpert
         public void AddQuestion()
         {
 
+        }
+
+        public void RemoveQuestion(int index)
+        {
+            Questions.RemoveAt(index);
         }
         
     
