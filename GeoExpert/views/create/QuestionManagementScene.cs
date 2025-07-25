@@ -9,52 +9,66 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-namespace GeoExpert
+using GeoExpert.models;
+using GeoExpert.controllers;
+
+namespace GeoExpert.views.create
 {
     partial class QuestionManagementScene : UserControl
     {
-
-        private int questionType;
-        private string questionContent;
-        private int correctAnswer = -1;
-        private List<string> answers = new List<string>();
-        public Question question;
+        private QuestionController controller;
+        //public QuestionController Controller { get; set; }
 
         public QuestionManagementScene()
         {
             InitializeComponent();
         }
 
+        public void SetController(QuestionController controller)
+        {
+            this.controller = controller;
+        }
+
+        public QuestionController GetController()
+        {
+            return this.controller;
+        }
+
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.questionType = QuestionTypeCB.SelectedIndex;
+            //MessageBox.Show(controller.QuestionType.ToString());
 
-            switch (this.questionType)
+            int questionType = QuestionTypeCB.SelectedIndex;
+            QuestionTypeTab.SelectTab(questionType);
+            controller.QuestionType = questionType;
+
+            switch (questionType)
             {
 
                 case 0:
                 {
-                    MultiChoicePanel.Visible = true;
+                    
+                    //MultiChoicePanel.Visible = true;
                     break;
                 }
 
                 case 1:
                 {
-                    MultiChoicePanel.Visible = false;
+                    //MultiChoicePanel.Visible = false;
                     break;
                 }
 
 
                 case 2:
                 {
-                    MultiChoicePanel.Visible = false;
+                    //MultiChoicePanel.Visible = false;
                     break;
                 }
 
 
                 default:
                 {
-                    MultiChoicePanel.Visible = true;
+                    //MultiChoicePanel.Visible = true;
                     break;
                 }
             }
@@ -72,32 +86,31 @@ namespace GeoExpert
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
-            this.questionContent = QuestionInput.Text;
+            this.controller.QuestionContent = QuestionInput.Text;
         }
 
         private void Radio1_CheckedChanged(object sender, EventArgs e)
         {
             CorrectAnswerIndicator.Top = Radio1.Location.Y;
-            this.correctAnswer = 0;
+            this.controller.CorrectAnswer = 0;
         }
 
         private void Radio2_CheckedChanged(object sender, EventArgs e)
         {
             CorrectAnswerIndicator.Top = Radio2.Location.Y;
-            this.correctAnswer = 1;
-
+            this.controller.CorrectAnswer = 1;
         }
 
         private void Radio3_CheckedChanged(object sender, EventArgs e)
         {
             CorrectAnswerIndicator.Top = Radio3.Location.Y;
-            this.correctAnswer = 2;
+            this.controller.CorrectAnswer = 2;
         }
 
         private void Radio4_CheckedChanged(object sender, EventArgs e)
         {
             CorrectAnswerIndicator.Top = Radio4.Location.Y;
-            this.correctAnswer = 3;
+            this.controller.CorrectAnswer = 3;
         }
 
         private void AnswerInput1_TextChanged(object sender, EventArgs e)
@@ -124,10 +137,9 @@ namespace GeoExpert
 
         public void ResetQuestionInputs()
         {
-            this.answers = new List<string>();
-            this.correctAnswer = 0;
-            this.questionContent = "";
-            //this.question = null;
+            controller.ClearAllAnswers();
+            controller.CorrectAnswer = -1;
+            controller.QuestionContent = "";
 
             QuestionTypeCB.SelectedIndex = -1;
 
@@ -158,7 +170,7 @@ namespace GeoExpert
                 return false;
             }
 
-            if (this.correctAnswer == -1)
+            if (controller.CorrectAnswer == -1)
             {
                 MessageBox.Show("Please select the correct answer for your question");
                 return false;
@@ -180,28 +192,27 @@ namespace GeoExpert
 
         private void SaveBtn_Clicked(object sender, EventArgs e)
         {
-            
-
-            switch (this.questionType) {
+            switch (controller.QuestionType) {
 
                 case 0:
                 {
-                    MultiChoiceQuestion question = new MultiChoiceQuestion();
+                    MultiChoiceQuestion question = controller.CreateMutliChoiceQuestion();
 
-                    this.answers.Add(AnswerInput1.Text);
-                    this.answers.Add(AnswerInput2.Text);
-                    this.answers.Add(AnswerInput3.Text);
-                    this.answers.Add(AnswerInput4.Text);
+                    controller.AddAnswer(AnswerInput1.Text);
+                    controller.AddAnswer(AnswerInput2.Text);
+                    controller.AddAnswer(AnswerInput3.Text);
+                    controller.AddAnswer(AnswerInput4.Text);
 
-                    question.Answers = this.answers;
-                    question.Content = this.questionContent;
-                    question.CorrectAnswer = this.correctAnswer;
+                    if (IsMultiChoiceQuestionValid()) 
+                    {
+                        question.Answers = controller.GetAnswers();
+                        question.Content = controller.QuestionContent;
+                        question.CorrectAnswer = controller.CorrectAnswer;
 
-                        if (IsMultiChoiceQuestionValid()) 
-                        {
-                            this.question = question;
-                            //ResetQuestionInputs();
-                        };
+                        controller.SetQuestion(question);
+                        ResetQuestionInputs();
+                    }
+
                     break;
                 }
 

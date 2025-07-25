@@ -1,6 +1,6 @@
-﻿namespace GeoExpert
+﻿namespace GeoExpert.views
 {
-    partial class AppForm
+    partial class MainAppForm
     {
         /// <summary>
         ///  Required designer variable.

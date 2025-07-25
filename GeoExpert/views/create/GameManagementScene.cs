@@ -9,17 +9,38 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GeoExpert
+using GeoExpert.controllers;
+using GeoExpert.models;
+
+namespace GeoExpert.views.create
 {
+
     partial class GameManagementScene : UserControl
     {
+        private GameController controller;
         private Game currentGame;
-        public Game CurrentGame { get; set; }
 
         public GameManagementScene()
         {
             InitializeComponent();
+            InitilizeController();
         }
+
+        private void InitilizeController()
+        {
+            this.controller = new GameController();
+        }
+
+        public void SetCurrentGame(Game game)
+        {
+            this.currentGame = game;
+        }
+
+        public Game GetCurrentGame()
+        {
+            return this.currentGame;
+        }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -39,14 +60,14 @@ namespace GeoExpert
 
         public void SetGameTitle()
         {
-            GameTitle.Text = CurrentGame.Title + "'s questions";
+            GameTitle.Text = currentGame.Title + "'s questions";
         }
 
         public void ListQuestion()
         {
             QuestionList.Items.Clear();
 
-            foreach (Question question in CurrentGame.Questions)
+            foreach (Question question in currentGame.Questions)
             {
                 if (question != null)
                 {
@@ -59,7 +80,8 @@ namespace GeoExpert
         {
             if (QuestionList.SelectedItem != null)
             {
-                CurrentGame.RemoveQuestion(QuestionList.SelectedIndex);
+                //MessageBox.Show(QuestionList.SelectedIndex.ToString());
+                currentGame.RemoveQuestion(QuestionList.SelectedIndex);
                 QuestionList.Items.Remove(QuestionList.SelectedItem);
             }
         }

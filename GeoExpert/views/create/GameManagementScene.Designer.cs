@@ -1,4 +1,4 @@
-﻿namespace GeoExpert
+﻿namespace GeoExpert.views.create
 {
     partial class GameManagementScene
     {
@@ -38,13 +38,18 @@
             // 
             // AddQuestionBtn
             // 
+            AddQuestionBtn.BackColor = Color.FromArgb(255, 210, 150);
             AddQuestionBtn.Cursor = Cursors.Hand;
+            AddQuestionBtn.FlatAppearance.BorderColor = Color.FromArgb(128, 64, 0);
+            AddQuestionBtn.FlatAppearance.BorderSize = 3;
+            AddQuestionBtn.FlatStyle = FlatStyle.Flat;
+            AddQuestionBtn.Font = new Font("Algerian", 9F);
             AddQuestionBtn.Location = new Point(613, 114);
             AddQuestionBtn.Name = "AddQuestionBtn";
-            AddQuestionBtn.Size = new Size(114, 23);
+            AddQuestionBtn.Size = new Size(122, 38);
             AddQuestionBtn.TabIndex = 0;
             AddQuestionBtn.Text = "Add question";
-            AddQuestionBtn.UseVisualStyleBackColor = true;
+            AddQuestionBtn.UseVisualStyleBackColor = false;
             AddQuestionBtn.Click += button1_Click;
             // 
             // ExitBtn
@@ -64,30 +69,43 @@
             // 
             // QuestionList
             // 
+            QuestionList.BackColor = Color.FromArgb(255, 210, 150);
+            QuestionList.BorderStyle = BorderStyle.None;
+            QuestionList.Font = new Font("Algerian", 9F);
             QuestionList.FormattingEnabled = true;
-            QuestionList.ItemHeight = 15;
+            QuestionList.ItemHeight = 14;
             QuestionList.Location = new Point(91, 114);
             QuestionList.Name = "QuestionList";
-            QuestionList.Size = new Size(451, 259);
+            QuestionList.Size = new Size(451, 252);
             QuestionList.TabIndex = 4;
             // 
             // button2
             // 
-            button2.Location = new Point(613, 179);
+            button2.BackColor = Color.FromArgb(255, 210, 150);
+            button2.FlatAppearance.BorderColor = Color.FromArgb(128, 64, 0);
+            button2.FlatAppearance.BorderSize = 3;
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.Font = new Font("Algerian", 9F);
+            button2.Location = new Point(613, 221);
             button2.Name = "button2";
-            button2.Size = new Size(114, 23);
+            button2.Size = new Size(122, 38);
             button2.TabIndex = 5;
             button2.Text = "Edit question";
-            button2.UseVisualStyleBackColor = true;
+            button2.UseVisualStyleBackColor = false;
             // 
             // DeleteQuestionBtn
             // 
-            DeleteQuestionBtn.Location = new Point(613, 239);
+            DeleteQuestionBtn.BackColor = Color.FromArgb(255, 210, 150);
+            DeleteQuestionBtn.FlatAppearance.BorderColor = Color.FromArgb(128, 64, 0);
+            DeleteQuestionBtn.FlatAppearance.BorderSize = 3;
+            DeleteQuestionBtn.FlatStyle = FlatStyle.Flat;
+            DeleteQuestionBtn.Font = new Font("Algerian", 9F);
+            DeleteQuestionBtn.Location = new Point(613, 328);
             DeleteQuestionBtn.Name = "DeleteQuestionBtn";
-            DeleteQuestionBtn.Size = new Size(114, 23);
+            DeleteQuestionBtn.Size = new Size(122, 38);
             DeleteQuestionBtn.TabIndex = 6;
             DeleteQuestionBtn.Text = "Delete question";
-            DeleteQuestionBtn.UseVisualStyleBackColor = true;
+            DeleteQuestionBtn.UseVisualStyleBackColor = false;
             DeleteQuestionBtn.Click += DeleteQuestionBtn_Click;
             // 
             // GameTitle

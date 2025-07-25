@@ -1,4 +1,4 @@
-﻿namespace GeoExpert
+﻿namespace GeoExpert.views.create
 {
     partial class CreateScene
     {

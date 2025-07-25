@@ -2,7 +2,8 @@
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace GeoExpert {
+namespace GeoExpert.views
+{
     public class RoundedPanel : Panel
     {
         private int _radius = 6;

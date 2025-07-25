@@ -1,4 +1,4 @@
-﻿namespace GeoExpert
+﻿namespace GeoExpert.views
 {
     partial class MenuScene
     {

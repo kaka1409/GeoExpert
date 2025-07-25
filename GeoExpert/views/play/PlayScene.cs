@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GeoExpert
+namespace GeoExpert.views.play
 {
     public partial class PlayScene : UserControl
     {

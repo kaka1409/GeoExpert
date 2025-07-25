@@ -1,4 +1,6 @@
-﻿namespace GeoExpert
+﻿using System.Windows.Forms;
+
+namespace GeoExpert.views.create
 {
     partial class QuestionManagementScene
     {
@@ -43,7 +45,13 @@
             Radio2 = new RadioButton();
             AnswerInput1 = new TextBox();
             Radio1 = new RadioButton();
+            QuestionTypeTab = new TabControl();
+            MultiChoicePage = new TabPage();
+            TrueFalsePage = new TabPage();
+            OpenEndedPage = new TabPage();
             MultiChoicePanel.SuspendLayout();
+            QuestionTypeTab.SuspendLayout();
+            MultiChoicePage.SuspendLayout();
             SuspendLayout();
             // 
             // ExitBtn
@@ -124,11 +132,10 @@
             MultiChoicePanel.Controls.Add(Radio2);
             MultiChoicePanel.Controls.Add(AnswerInput1);
             MultiChoicePanel.Controls.Add(Radio1);
-            MultiChoicePanel.Location = new Point(0, 261);
+            MultiChoicePanel.Location = new Point(0, 6);
             MultiChoicePanel.Name = "MultiChoicePanel";
             MultiChoicePanel.Size = new Size(707, 120);
             MultiChoicePanel.TabIndex = 18;
-            MultiChoicePanel.Visible = false;
             MultiChoicePanel.Paint += MultiChoicePanel_Paint;
             // 
             // CorrectAnswerIndicator
@@ -241,12 +248,62 @@
             Radio1.UseVisualStyleBackColor = false;
             Radio1.CheckedChanged += Radio1_CheckedChanged;
             // 
+            // QuestionTypeTab
+            // 
+            QuestionTypeTab.Appearance = TabAppearance.Buttons;
+            QuestionTypeTab.ItemSize = new Size(0, 1);
+            QuestionTypeTab.SizeMode = TabSizeMode.Fixed;
+            //QuestionTypeTab.Region = new Region(new RectangleF(
+            //    this.tabPage1.Left, this.tabPage1.Top,
+            //    this.tabPage1.Width, this.tabPage1.Height
+            //));
+            QuestionTypeTab.Controls.Add(MultiChoicePage);
+            QuestionTypeTab.Controls.Add(TrueFalsePage);
+            QuestionTypeTab.Controls.Add(OpenEndedPage);
+            QuestionTypeTab.Location = new Point(0, 222);
+            QuestionTypeTab.Name = "QuestionTypeTab";
+            QuestionTypeTab.SelectedIndex = 0;
+            QuestionTypeTab.Size = new Size(751, 169);
+            QuestionTypeTab.TabIndex = 19;
+            // 
+            // MultiChoicePage
+            // 
+            MultiChoicePage.AccessibleRole = AccessibleRole.PushButton;
+            MultiChoicePage.BackColor = Color.FromArgb(255, 210, 150);
+            MultiChoicePage.Controls.Add(MultiChoicePanel);
+            MultiChoicePage.Location = new Point(4, 24);
+            MultiChoicePage.Name = "MultiChoicePage";
+            MultiChoicePage.Padding = new Padding(3);
+            MultiChoicePage.Size = new Size(743, 141);
+            MultiChoicePage.TabIndex = 0;
+            MultiChoicePage.Text = "Multi choice";
+            // 
+            // TrueFalsePage
+            // 
+            TrueFalsePage.BackColor = Color.FromArgb(255, 210, 150);
+            TrueFalsePage.Location = new Point(4, 24);
+            TrueFalsePage.Name = "TrueFalsePage";
+            TrueFalsePage.Padding = new Padding(3);
+            TrueFalsePage.Size = new Size(743, 141);
+            TrueFalsePage.TabIndex = 1;
+            TrueFalsePage.Text = "True False";
+            // 
+            // OpenEndedPage
+            // 
+            OpenEndedPage.BackColor = Color.FromArgb(255, 210, 150);
+            OpenEndedPage.Location = new Point(4, 24);
+            OpenEndedPage.Name = "OpenEndedPage";
+            OpenEndedPage.Padding = new Padding(3);
+            OpenEndedPage.Size = new Size(743, 141);
+            OpenEndedPage.TabIndex = 2;
+            OpenEndedPage.Text = "Open ended";
+            // 
             // QuestionManagementScene
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = Properties.Resources.blurredBackground;
-            Controls.Add(MultiChoicePanel);
+            Controls.Add(QuestionTypeTab);
             Controls.Add(SaveBtn);
             Controls.Add(QuestionInput);
             Controls.Add(label1);
@@ -257,6 +314,8 @@
             Load += QuestionManagementScene_Load;
             MultiChoicePanel.ResumeLayout(false);
             MultiChoicePanel.PerformLayout();
+            QuestionTypeTab.ResumeLayout(false);
+            MultiChoicePage.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -278,5 +337,9 @@
         private RadioButton Radio2;
         private TextBox AnswerInput1;
         private RadioButton Radio1;
+        private TabControl QuestionTypeTab;
+        private TabPage MultiChoicePage;
+        private TabPage TrueFalsePage;
+        private TabPage OpenEndedPage;
     }
 }

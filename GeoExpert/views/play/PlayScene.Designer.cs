@@ -1,4 +1,4 @@
-﻿namespace GeoExpert
+﻿namespace GeoExpert.views.play
 {
     partial class PlayScene
     {
