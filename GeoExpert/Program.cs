@@ -1,4 +1,4 @@
-using GeoExpert.views;
+using GeoExpert.views.main;
 
 namespace GeoExpert
 {

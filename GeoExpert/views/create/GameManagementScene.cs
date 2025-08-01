@@ -9,45 +9,34 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using GeoExpert.Utils;
 using GeoExpert.controllers;
 using GeoExpert.models;
 
 namespace GeoExpert.views.create
 {
-
     partial class GameManagementScene : UserControl
     {
-        private GameController controller;
-        private Game currentGame;
+        private GameController gameController;
+        public GameController GameController
+        {
+            get { return gameController; }
+            set { gameController = value; }
+        }
+        private QuestionController questionController;
+        public QuestionController QuestionController
+        {
+            get { return questionController; }
+            set { questionController = value; }
+        }
 
         public GameManagementScene()
         {
             InitializeComponent();
-            InitilizeController();
-        }
-
-        private void InitilizeController()
-        {
-            this.controller = new GameController();
-        }
-
-        public void SetCurrentGame(Game game)
-        {
-            this.currentGame = game;
-        }
-
-        public Game GetCurrentGame()
-        {
-            return this.currentGame;
         }
 
 
         private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void GameManagementScene_Load(object sender, EventArgs e)
         {
 
         }
@@ -60,19 +49,31 @@ namespace GeoExpert.views.create
 
         public void SetGameTitle()
         {
-            GameTitle.Text = currentGame.Title + "'s questions";
+            GameTitle.Text = gameController.CurrentGame.Title + "'s questions";
         }
 
         public void ListQuestion()
         {
             QuestionList.Items.Clear();
 
-            foreach (Question question in currentGame.Questions)
+            foreach (dynamic question in gameController.CurrentGame.Questions)
             {
                 if (question != null)
                 {
-                    QuestionList.Items.Add($"[{question.Type}] {question.Content}");
+                    string questionType = ViewHelper.FormatQuestionType(question.Type);
+                    QuestionList.Items.Add($"[{questionType}] {question.Content}");
                 }
+            }
+        }
+
+        private void QuestionList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            List<object> questions = gameController.CurrentGame.Questions;
+            dynamic? selectedQuestion = QuestionList.SelectedIndex != -1 ? questions[QuestionList.SelectedIndex] : null;
+            if (selectedQuestion != null)
+            {
+                this.questionController.SelectedIndex = QuestionList.SelectedIndex;
+                this.questionController.SelectedQuestion = selectedQuestion;
             }
         }
 
@@ -81,9 +82,10 @@ namespace GeoExpert.views.create
             if (QuestionList.SelectedItem != null)
             {
                 //MessageBox.Show(QuestionList.SelectedIndex.ToString());
-                currentGame.RemoveQuestion(QuestionList.SelectedIndex);
+                gameController.CurrentGame.RemoveQuestion(QuestionList.SelectedIndex);
                 QuestionList.Items.Remove(QuestionList.SelectedItem);
             }
         }
+        
     }
 }

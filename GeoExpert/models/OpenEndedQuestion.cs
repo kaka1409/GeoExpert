@@ -8,19 +8,24 @@ namespace GeoExpert.models
 {
     class OpenEndedQuestion : Question
     {
-
-        public OpenEndedQuestion()
+        public QuestionType type = QuestionType.OpenEnded;
+        public QuestionType Type
         {
-            Type = "Open-ended";
+            get { return type; }
+            set { type = value; }
         }
+
+        private List<string> correctAnswers = new List<string>();
+        public List<string> CorrectAnswers
+        {
+            get { return correctAnswers; }
+            set { correctAnswers = value; }
+        }
+        public OpenEndedQuestion() { }
         public override bool CheckAnswer()
         {
             return true;
         }
 
-        public override string getAnswer()
-        {
-            return "";
-        }
     }
 }

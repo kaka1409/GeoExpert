@@ -8,41 +8,58 @@ using GeoExpert.models;
 
 namespace GeoExpert.controllers
 {
-    internal class QuestionController
+    public class QuestionController
     {
-        private int questionType;
-        public int QuestionType { get; set; }
+        // Add question state
+        private QuestionType questionType;
+        public QuestionType QuestionType
+        {
+            get { return questionType; }
+            set { questionType = value; }
+        }
         private string questionContent;
-        public string QuestionContent { get; set; }
+        public string QuestionContent
+        {
+            get { return questionContent; }
+            set { questionContent = value; }
+        }
         private int correctAnswer = -1;
-        public int CorrectAnswer { get; set; } = -1;
+        public int CorrectAnswer
+        {
+            get { return correctAnswer; }
+            set { correctAnswer = value; }
+        }
         private List<string> answers = new List<string>();
-        private Question question;
-        public Question Question { get; set; }
+        private object question;
+        public object Question
+        {
+            get { return question; }
+            set { question = value; }
+        }
 
-        public void SetQuestion(Question question)
+        // Edit question state
+        private int selectedIndex;
+        public int SelectedIndex
+        {
+            get { return selectedIndex; }
+            set { selectedIndex = value; }
+        }
+
+        private object selectedQuestion;
+        public object SelectedQuestion
+        {
+            get { return selectedQuestion; }
+            set { selectedQuestion = value; }
+        }
+
+        public void SetQuestion(object question)
         {
             this.question = question;
         }
 
-        public Question GetQuestion()
+        public object GetQuestion()
         {
             return this.question;
-        }
-
-        public MultiChoiceQuestion CreateMutliChoiceQuestion()
-        {
-            return new MultiChoiceQuestion();
-        }
-
-        public TFQuestion CreateNewTFQuestion()
-        {
-            return new TFQuestion();
-        }
-
-        public OpenEndedQuestion CreateOpenEndedQuestion()
-        {
-            return new OpenEndedQuestion();
         }
 
         public void AddAnswer(string answer)

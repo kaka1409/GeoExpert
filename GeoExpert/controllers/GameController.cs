@@ -9,16 +9,13 @@ using GeoExpert.models;
 
 namespace GeoExpert.controllers
 {
-    internal class GameController
+    class GameController
     {
-        public void CreateNewGame()
+        private Game currentGame;
+        public Game CurrentGame
         {
-
-        }
-
-        public void AddNewGame()
-        {
-
+            get { return currentGame; }
+            set { currentGame = value; }
         }
         
         public void AddNewQuestion()

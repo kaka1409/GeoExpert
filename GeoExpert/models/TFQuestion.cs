@@ -8,19 +8,20 @@ namespace GeoExpert.models
 {
     class TFQuestion : Question
     {
+        private QuestionType type = QuestionType.TrueFalse;
+        public QuestionType Type
+        {
+            get { return type; }
+            set { type = value; }
+        }
         public TFQuestion()
         {
-            Type = "True/False";
+
         }
 
         public override bool CheckAnswer()
         {
             return true;
-        }
-
-        public override string getAnswer()
-        {
-            return "";
         }
     }
 }

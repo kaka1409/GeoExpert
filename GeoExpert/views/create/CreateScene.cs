@@ -11,6 +11,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 using GeoExpert.models;
 using GeoExpert.controllers;
+using GeoExpert.Views.Widget.Custom;
 
 namespace GeoExpert.views.create;
 

@@ -11,83 +11,79 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 using GeoExpert.models;
 using GeoExpert.controllers;
+using GeoExpert.Views.Widget.Custom;
 
 namespace GeoExpert.views.create
 {
     partial class QuestionManagementScene : UserControl
     {
         private QuestionController controller;
-        //public QuestionController Controller { get; set; }
+        public QuestionController Controller
+        {
+            get { return controller; }
+            set { controller = value; }
+        }
 
         public QuestionManagementScene()
         {
             InitializeComponent();
         }
 
-        public void SetController(QuestionController controller)
-        {
-            this.controller = controller;
-        }
-
-        public QuestionController GetController()
-        {
-            return this.controller;
-        }
-
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             //MessageBox.Show(controller.QuestionType.ToString());
 
-            int questionType = QuestionTypeCB.SelectedIndex;
-            QuestionTypeTab.SelectTab(questionType);
-            controller.QuestionType = questionType;
-
-            switch (questionType)
+            int questionTypeIndex = QuestionTypeCB.SelectedIndex;
+            switch (questionTypeIndex)
             {
-
                 case 0:
-                {
-                    
-                    //MultiChoicePanel.Visible = true;
-                    break;
-                }
+                    {
+                        QuestionTypeTab.SelectTab(questionTypeIndex);
+                        controller.QuestionType = QuestionType.MultipleChoice;
+                        break;
+                    }
 
                 case 1:
-                {
-                    //MultiChoicePanel.Visible = false;
-                    break;
-                }
+                    {
+                        QuestionTypeTab.SelectTab(questionTypeIndex);
+                        controller.QuestionType = QuestionType.TrueFalse;
+                        break;
+                    }
 
 
                 case 2:
-                {
-                    //MultiChoicePanel.Visible = false;
-                    break;
-                }
+                    {
+                        QuestionTypeTab.SelectTab(questionTypeIndex);
+                        controller.QuestionType = QuestionType.OpenEnded;
+                        break;
+                    }
 
 
                 default:
-                {
-                    //MultiChoicePanel.Visible = true;
-                    break;
-                }
+                    {
+                        //MessageBox.Show(questionTypeIndex.ToString());
+                        break;
+                    }
             }
         }
 
         private void QuestionManagementScene_Load(object sender, EventArgs e)
         {
             QuestionTypeCB.Items.AddRange(new string[] { "Multiple Choice", "True/False", "Open-ended" });
+            QuestionTypeTab.MakeTransparent();
         }
 
         private void MultiChoicePanel_Paint(object sender, PaintEventArgs e)
         {
-            //MultiChoicePanel.Visible = true;
+
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
             this.controller.QuestionContent = QuestionInput.Text;
         }
+
+        // Multichoice 
 
         private void Radio1_CheckedChanged(object sender, EventArgs e)
         {
@@ -115,7 +111,7 @@ namespace GeoExpert.views.create
 
         private void AnswerInput1_TextChanged(object sender, EventArgs e)
         {
-           
+
 
         }
 
@@ -126,34 +122,13 @@ namespace GeoExpert.views.create
 
         private void AnswerInput3_TextChanged(object sender, EventArgs e)
         {
-    
+
 
         }
 
         private void AnswerInput4_TextChanged(object sender, EventArgs e)
         {
 
-        }
-
-        public void ResetQuestionInputs()
-        {
-            controller.ClearAllAnswers();
-            controller.CorrectAnswer = -1;
-            controller.QuestionContent = "";
-
-            QuestionTypeCB.SelectedIndex = -1;
-
-            // Reset all text input
-            AnswerInput1.Clear();
-            AnswerInput2.Clear();
-            AnswerInput3.Clear();
-            AnswerInput4.Clear();
-            QuestionInput.Clear();
-
-            Radio1.Checked = false;
-            Radio2.Checked = false;
-            Radio3.Checked = false;
-            Radio4.Checked = false;
         }
 
         private Boolean IsMultiChoiceQuestionValid()
@@ -190,54 +165,188 @@ namespace GeoExpert.views.create
             return true;
         }
 
-        private void SaveBtn_Clicked(object sender, EventArgs e)
+        public void ResetQuestionInputs()
         {
-            switch (controller.QuestionType) {
+            // Reset controller's states
+            controller.ClearAllAnswers();
+            controller.CorrectAnswer = -1;
+            controller.QuestionContent = "";
 
-                case 0:
-                {
-                    MultiChoiceQuestion question = controller.CreateMutliChoiceQuestion();
+            QuestionTypeCB.SelectedIndex = -1;
 
-                    controller.AddAnswer(AnswerInput1.Text);
-                    controller.AddAnswer(AnswerInput2.Text);
-                    controller.AddAnswer(AnswerInput3.Text);
-                    controller.AddAnswer(AnswerInput4.Text);
+            // Reset all text input
+            AnswerInput1.Clear();
+            AnswerInput2.Clear();
+            AnswerInput3.Clear();
+            AnswerInput4.Clear();
+            QuestionInput.Clear();
+            AnswerList.Items.Clear();
 
-                    if (IsMultiChoiceQuestionValid()) 
-                    {
-                        question.Answers = controller.GetAnswers();
-                        question.Content = controller.QuestionContent;
-                        question.CorrectAnswer = controller.CorrectAnswer;
+            // Unchecked all radios
+            Radio1.Checked = false;
+            Radio2.Checked = false;
+            Radio3.Checked = false;
+            Radio4.Checked = false;
+            TrueRadio.Checked = false;
+            FalseRadio.Checked = false;
+        }
 
-                        controller.SetQuestion(question);
-                        ResetQuestionInputs();
-                    }
+        // True false
+        private void TrueRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            TFCorrectIndicatior.Top = TrueRadio.Location.Y;
+            this.controller.CorrectAnswer = 0;
+        }
 
-                    break;
-                }
+        private void FalseRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            TFCorrectIndicatior.Top = FalseRadio.Location.Y;
+            this.controller.CorrectAnswer = 1;
+        }
 
-                case 1:
-                {
-                    TFQuestion question = new TFQuestion();
+        private bool IsTrueFalseQuestionValid()
+        {
+            if (QuestionTypeCB.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select a question type");
+                return false;
+            }
 
+            if (QuestionInput.Text.Trim() == "")
+            {
+                MessageBox.Show("You can not left the question input empty, please write out the question");
+                return false;
+            }
 
-                    break;
-                }
+            if (controller.CorrectAnswer == -1)
+            {
+                MessageBox.Show("Please select the correct answer for your question");
+                return false;
+            }
 
-                case 2:
-                {
-                    OpenEndedQuestion question = new OpenEndedQuestion();
-                    
-       
-                    break;
-                }
+            return true;
+        }
 
-                default:
-                {
-                    MessageBox.Show("No question type chosen");
-                    break;
-                }
+        // Open ended
+        private void AddAnswerButton_Click(object sender, EventArgs e)
+        {
+            string answer = AnswerInput.Text.Trim();
+
+            if (answer == "") MessageBox.Show("Please don't leave answer input empty");  
+
+            if (!AnswerList.Items.Contains(answer))
+            {
+                AnswerList.Items.Add(answer);
+                AnswerInput.Clear();
+            } else
+            {
+                MessageBox.Show("This answer already exist");
             }
         }
+
+        private void RemoveAnswerButton_Click(object sender, EventArgs e)
+        {
+            int removeIndex = AnswerList.SelectedIndex;
+            AnswerList.Items.RemoveAt(removeIndex);
+        }
+
+        private bool IsOpenEndedQuestionvalid()
+        {
+            if (QuestionTypeCB.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select a question type");
+                return false;
+            }
+
+            if (QuestionInput.Text.Trim() == "")
+            {
+                MessageBox.Show("You can not left the question input empty, please write out the question");
+                return false;
+            }
+
+            if (AnswerList.Items.Count == 0)
+            {
+                MessageBox.Show("Open-Ended question need to have at least 1 answer");
+                return false;
+            }
+
+            return true;
+        }
+
+        private void SaveBtn_Clicked(object sender, EventArgs e)
+        {
+            switch (controller.QuestionType)
+            {
+
+                case QuestionType.MultipleChoice:
+                    {
+                        MultiChoiceQuestion question = new MultiChoiceQuestion();
+
+                        controller.AddAnswer(AnswerInput1.Text.Trim());
+                        controller.AddAnswer(AnswerInput2.Text.Trim());
+                        controller.AddAnswer(AnswerInput3.Text.Trim());
+                        controller.AddAnswer(AnswerInput4.Text.Trim());
+
+                        if (IsMultiChoiceQuestionValid())
+                        {
+                            question.Answers = controller.GetAnswers();
+                            question.Content = controller.QuestionContent;
+                            question.CorrectAnswer = controller.CorrectAnswer;
+
+                            controller.Question = question;
+                            ResetQuestionInputs();
+                        }
+
+                        break;
+                    }
+
+                case QuestionType.TrueFalse:
+                    {
+                        TFQuestion question = new TFQuestion();
+
+                        controller.AddAnswer(TrueLabel.Text);
+                        controller.AddAnswer(FalseLabel.Text);
+
+                        if (IsTrueFalseQuestionValid())
+                        {
+                            question.Answers = controller.GetAnswers();
+                            question.Content = controller.QuestionContent;
+                            question.CorrectAnswer = controller.CorrectAnswer;
+
+                            controller.Question = question;
+                            ResetQuestionInputs();
+                        }
+
+                        break;
+                    }
+
+                case QuestionType.OpenEnded:
+                    {
+                        OpenEndedQuestion question = new OpenEndedQuestion();
+
+                        if (IsOpenEndedQuestionvalid())
+                        {
+                            question.Content = controller.QuestionContent;
+                            foreach (string answer in AnswerList.Items)
+                            {
+                                question.CorrectAnswers.Add(answer);
+                            }
+
+                            controller.Question = question;
+                            ResetQuestionInputs();
+                        }
+
+                        break;
+                    }
+
+                default:
+                    {
+                        MessageBox.Show("Invalid question type");
+                        break;
+                    }
+            }
+
+        }
+
     }
 }

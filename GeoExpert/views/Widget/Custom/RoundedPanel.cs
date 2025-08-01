@@ -2,7 +2,7 @@
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace GeoExpert.views
+namespace GeoExpert.Views.Widget.Custom
 {
     public class RoundedPanel : Panel
     {

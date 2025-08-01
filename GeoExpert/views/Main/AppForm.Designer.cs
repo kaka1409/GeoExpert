@@ -1,4 +1,4 @@
-﻿namespace GeoExpert.views
+﻿namespace GeoExpert.views.main
 {
     partial class MainAppForm
     {

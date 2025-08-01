@@ -8,9 +8,15 @@ namespace GeoExpert.models
 {
     class MultiChoiceQuestion : Question
     {
+        private QuestionType type = QuestionType.MultipleChoice;
+        public QuestionType Type
+        {
+            get { return type; }
+            set { type = value; }
+        }
         public MultiChoiceQuestion()
         {
-            Type = "Multiple choices";
+
         }
 
         public override bool CheckAnswer()
@@ -18,9 +24,5 @@ namespace GeoExpert.models
             return true;
         }
 
-        public override string getAnswer()
-        {
-            return "";
-        }
     }
 }

@@ -31,7 +31,7 @@
             AddQuestionBtn = new Button();
             ExitBtn = new Button();
             QuestionList = new ListBox();
-            button2 = new Button();
+            EditQuestionBtn = new Button();
             DeleteQuestionBtn = new Button();
             GameTitle = new Label();
             SuspendLayout();
@@ -78,20 +78,21 @@
             QuestionList.Name = "QuestionList";
             QuestionList.Size = new Size(451, 252);
             QuestionList.TabIndex = 4;
+            QuestionList.SelectedIndexChanged += QuestionList_SelectedIndexChanged;
             // 
-            // button2
+            // EditQuestionBtn
             // 
-            button2.BackColor = Color.FromArgb(255, 210, 150);
-            button2.FlatAppearance.BorderColor = Color.FromArgb(128, 64, 0);
-            button2.FlatAppearance.BorderSize = 3;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Algerian", 9F);
-            button2.Location = new Point(613, 221);
-            button2.Name = "button2";
-            button2.Size = new Size(122, 38);
-            button2.TabIndex = 5;
-            button2.Text = "Edit question";
-            button2.UseVisualStyleBackColor = false;
+            EditQuestionBtn.BackColor = Color.FromArgb(255, 210, 150);
+            EditQuestionBtn.FlatAppearance.BorderColor = Color.FromArgb(128, 64, 0);
+            EditQuestionBtn.FlatAppearance.BorderSize = 3;
+            EditQuestionBtn.FlatStyle = FlatStyle.Flat;
+            EditQuestionBtn.Font = new Font("Algerian", 9F);
+            EditQuestionBtn.Location = new Point(613, 221);
+            EditQuestionBtn.Name = "EditQuestionBtn";
+            EditQuestionBtn.Size = new Size(122, 38);
+            EditQuestionBtn.TabIndex = 5;
+            EditQuestionBtn.Text = "Edit question";
+            EditQuestionBtn.UseVisualStyleBackColor = false;
             // 
             // DeleteQuestionBtn
             // 
@@ -126,7 +127,7 @@
             BackgroundImage = Properties.Resources.blurredBackground;
             Controls.Add(GameTitle);
             Controls.Add(DeleteQuestionBtn);
-            Controls.Add(button2);
+            Controls.Add(EditQuestionBtn);
             Controls.Add(QuestionList);
             Controls.Add(ExitBtn);
             Controls.Add(AddQuestionBtn);
@@ -141,7 +142,7 @@
         public Button AddQuestionBtn;
         public Button ExitBtn;
         private ListBox QuestionList;
-        private Button button2;
+        public Button EditQuestionBtn;
         private Button DeleteQuestionBtn;
         private Label GameTitle;
     }

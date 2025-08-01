@@ -9,11 +9,25 @@ namespace GeoExpert.models
     class Game
     {
         private string id;
-        public string Id { get; set; }
+        public string Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
         private string title;
-        public string Title { get; set; }
-        private List<Question> questions;
-        public List<Question> Questions { get; set; } = new List<Question>();
+        public string Title
+        {
+            get {  return title; }
+            set { title = value; }
+        }
+
+        private List<object> questions = new List<object>();
+        public List<object> Questions
+        {
+            get { return questions; }
+            set { questions = value; }
+        }
 
         private int questionNumber;
         public int QuestionNumber { get; set; }

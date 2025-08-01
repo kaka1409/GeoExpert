@@ -1,5 +1,7 @@
 ﻿using System.Windows.Forms;
 
+using GeoExpert.Views.Widget.Custom;
+
 namespace GeoExpert.views.create
 {
     partial class QuestionManagementScene
@@ -35,6 +37,8 @@ namespace GeoExpert.views.create
             label1 = new Label();
             QuestionInput = new RichTextBox();
             SaveBtn = new Button();
+            QuestionTypeTab = new TransparentTabControl();
+            MultiChoicePage = new TabPage();
             MultiChoicePanel = new Panel();
             CorrectAnswerIndicator = new Label();
             AnswerInput4 = new TextBox();
@@ -45,13 +49,25 @@ namespace GeoExpert.views.create
             Radio2 = new RadioButton();
             AnswerInput1 = new TextBox();
             Radio1 = new RadioButton();
-            QuestionTypeTab = new TabControl();
-            MultiChoicePage = new TabPage();
             TrueFalsePage = new TabPage();
+            FalseLabel = new Label();
+            TrueLabel = new Label();
+            TFCorrectIndicatior = new Label();
+            FalseRadio = new RadioButton();
+            TrueRadio = new RadioButton();
             OpenEndedPage = new TabPage();
-            MultiChoicePanel.SuspendLayout();
+            label3 = new Label();
+            label2 = new Label();
+            RemoveAnswerButton = new Button();
+            AnswerInput = new RichTextBox();
+            AddAnswerButton = new Button();
+            AnswerList = new ListBox();
+            EmptyPage = new TabPage();
             QuestionTypeTab.SuspendLayout();
             MultiChoicePage.SuspendLayout();
+            MultiChoicePanel.SuspendLayout();
+            TrueFalsePage.SuspendLayout();
+            OpenEndedPage.SuspendLayout();
             SuspendLayout();
             // 
             // ExitBtn
@@ -71,6 +87,7 @@ namespace GeoExpert.views.create
             // 
             // QuestionTypeCB
             // 
+            QuestionTypeCB.AllowDrop = true;
             QuestionTypeCB.BackColor = Color.FromArgb(255, 210, 150);
             QuestionTypeCB.FlatStyle = FlatStyle.Flat;
             QuestionTypeCB.Font = new Font("Algerian", 10F);
@@ -107,11 +124,12 @@ namespace GeoExpert.views.create
             // 
             // SaveBtn
             // 
-            SaveBtn.BackColor = Color.FromArgb(255, 210, 150);
+            SaveBtn.BackColor = Color.FromArgb(128, 64, 0);
             SaveBtn.FlatAppearance.BorderColor = Color.FromArgb(128, 64, 0);
             SaveBtn.FlatAppearance.BorderSize = 3;
             SaveBtn.FlatStyle = FlatStyle.Flat;
             SaveBtn.Font = new Font("Algerian", 10F);
+            SaveBtn.ForeColor = Color.FromArgb(255, 210, 150);
             SaveBtn.Location = new Point(110, 401);
             SaveBtn.Name = "SaveBtn";
             SaveBtn.Size = new Size(75, 32);
@@ -119,6 +137,31 @@ namespace GeoExpert.views.create
             SaveBtn.Text = "Save ";
             SaveBtn.UseVisualStyleBackColor = false;
             SaveBtn.Click += SaveBtn_Clicked;
+            // 
+            // QuestionTypeTab
+            // 
+            QuestionTypeTab.Controls.Add(MultiChoicePage);
+            QuestionTypeTab.Controls.Add(TrueFalsePage);
+            QuestionTypeTab.Controls.Add(OpenEndedPage);
+            QuestionTypeTab.Controls.Add(EmptyPage);
+            QuestionTypeTab.ItemSize = new Size(0, 1);
+            QuestionTypeTab.Location = new Point(0, 215);
+            QuestionTypeTab.Name = "QuestionTypeTab";
+            QuestionTypeTab.SelectedIndex = 3;
+            QuestionTypeTab.Size = new Size(708, 176);
+            QuestionTypeTab.SizeMode = TabSizeMode.Fixed;
+            QuestionTypeTab.TabIndex = 19;
+            // 
+            // MultiChoicePage
+            // 
+            MultiChoicePage.BackColor = Color.FromArgb(255, 210, 150);
+            MultiChoicePage.Controls.Add(MultiChoicePanel);
+            MultiChoicePage.Location = new Point(4, 24);
+            MultiChoicePage.Name = "MultiChoicePage";
+            MultiChoicePage.Padding = new Padding(3);
+            MultiChoicePage.Size = new Size(700, 148);
+            MultiChoicePage.TabIndex = 0;
+            MultiChoicePage.Text = "Multi choice";
             // 
             // MultiChoicePanel
             // 
@@ -132,7 +175,7 @@ namespace GeoExpert.views.create
             MultiChoicePanel.Controls.Add(Radio2);
             MultiChoicePanel.Controls.Add(AnswerInput1);
             MultiChoicePanel.Controls.Add(Radio1);
-            MultiChoicePanel.Location = new Point(0, 6);
+            MultiChoicePanel.Location = new Point(0, 15);
             MultiChoicePanel.Name = "MultiChoicePanel";
             MultiChoicePanel.Size = new Size(707, 120);
             MultiChoicePanel.TabIndex = 18;
@@ -248,55 +291,181 @@ namespace GeoExpert.views.create
             Radio1.UseVisualStyleBackColor = false;
             Radio1.CheckedChanged += Radio1_CheckedChanged;
             // 
-            // QuestionTypeTab
-            // 
-            QuestionTypeTab.Appearance = TabAppearance.Buttons;
-            QuestionTypeTab.ItemSize = new Size(0, 1);
-            QuestionTypeTab.SizeMode = TabSizeMode.Fixed;
-            //QuestionTypeTab.Region = new Region(new RectangleF(
-            //    this.tabPage1.Left, this.tabPage1.Top,
-            //    this.tabPage1.Width, this.tabPage1.Height
-            //));
-            QuestionTypeTab.Controls.Add(MultiChoicePage);
-            QuestionTypeTab.Controls.Add(TrueFalsePage);
-            QuestionTypeTab.Controls.Add(OpenEndedPage);
-            QuestionTypeTab.Location = new Point(0, 222);
-            QuestionTypeTab.Name = "QuestionTypeTab";
-            QuestionTypeTab.SelectedIndex = 0;
-            QuestionTypeTab.Size = new Size(751, 169);
-            QuestionTypeTab.TabIndex = 19;
-            // 
-            // MultiChoicePage
-            // 
-            MultiChoicePage.AccessibleRole = AccessibleRole.PushButton;
-            MultiChoicePage.BackColor = Color.FromArgb(255, 210, 150);
-            MultiChoicePage.Controls.Add(MultiChoicePanel);
-            MultiChoicePage.Location = new Point(4, 24);
-            MultiChoicePage.Name = "MultiChoicePage";
-            MultiChoicePage.Padding = new Padding(3);
-            MultiChoicePage.Size = new Size(743, 141);
-            MultiChoicePage.TabIndex = 0;
-            MultiChoicePage.Text = "Multi choice";
-            // 
             // TrueFalsePage
             // 
             TrueFalsePage.BackColor = Color.FromArgb(255, 210, 150);
+            TrueFalsePage.Controls.Add(FalseLabel);
+            TrueFalsePage.Controls.Add(TrueLabel);
+            TrueFalsePage.Controls.Add(TFCorrectIndicatior);
+            TrueFalsePage.Controls.Add(FalseRadio);
+            TrueFalsePage.Controls.Add(TrueRadio);
             TrueFalsePage.Location = new Point(4, 24);
             TrueFalsePage.Name = "TrueFalsePage";
             TrueFalsePage.Padding = new Padding(3);
-            TrueFalsePage.Size = new Size(743, 141);
+            TrueFalsePage.Size = new Size(700, 148);
             TrueFalsePage.TabIndex = 1;
             TrueFalsePage.Text = "True False";
             // 
+            // FalseLabel
+            // 
+            FalseLabel.AutoSize = true;
+            FalseLabel.Font = new Font("Algerian", 10F);
+            FalseLabel.Location = new Point(139, 48);
+            FalseLabel.Name = "FalseLabel";
+            FalseLabel.Size = new Size(51, 15);
+            FalseLabel.TabIndex = 32;
+            FalseLabel.Text = "False";
+            // 
+            // TrueLabel
+            // 
+            TrueLabel.AutoSize = true;
+            TrueLabel.Font = new Font("Algerian", 10F);
+            TrueLabel.Location = new Point(139, 19);
+            TrueLabel.Name = "TrueLabel";
+            TrueLabel.Size = new Size(42, 15);
+            TrueLabel.TabIndex = 31;
+            TrueLabel.Text = "TRUE";
+            // 
+            // TFCorrectIndicatior
+            // 
+            TFCorrectIndicatior.AutoSize = true;
+            TFCorrectIndicatior.BackColor = Color.Transparent;
+            TFCorrectIndicatior.Font = new Font("Algerian", 7F);
+            TFCorrectIndicatior.ForeColor = Color.Green;
+            TFCorrectIndicatior.Location = new Point(-1, 19);
+            TFCorrectIndicatior.Name = "TFCorrectIndicatior";
+            TFCorrectIndicatior.Size = new Size(103, 11);
+            TFCorrectIndicatior.TabIndex = 30;
+            TFCorrectIndicatior.Text = "Correct answer ✔️";
+            // 
+            // FalseRadio
+            // 
+            FalseRadio.AutoSize = true;
+            FalseRadio.BackColor = Color.FromArgb(255, 210, 150);
+            FalseRadio.FlatStyle = FlatStyle.Flat;
+            FalseRadio.Location = new Point(108, 48);
+            FalseRadio.Name = "FalseRadio";
+            FalseRadio.Size = new Size(13, 12);
+            FalseRadio.TabIndex = 28;
+            FalseRadio.UseVisualStyleBackColor = false;
+            FalseRadio.CheckedChanged += FalseRadio_CheckedChanged;
+            // 
+            // TrueRadio
+            // 
+            TrueRadio.AutoSize = true;
+            TrueRadio.BackColor = Color.FromArgb(255, 210, 150);
+            TrueRadio.FlatAppearance.BorderColor = Color.FromArgb(128, 64, 0);
+            TrueRadio.FlatAppearance.BorderSize = 2;
+            TrueRadio.FlatStyle = FlatStyle.Flat;
+            TrueRadio.Location = new Point(109, 20);
+            TrueRadio.Name = "TrueRadio";
+            TrueRadio.Size = new Size(13, 12);
+            TrueRadio.TabIndex = 26;
+            TrueRadio.UseVisualStyleBackColor = false;
+            TrueRadio.CheckedChanged += TrueRadio_CheckedChanged;
+            // 
             // OpenEndedPage
             // 
-            OpenEndedPage.BackColor = Color.FromArgb(255, 210, 150);
+            OpenEndedPage.BackColor = Color.Transparent;
+            OpenEndedPage.Controls.Add(label3);
+            OpenEndedPage.Controls.Add(label2);
+            OpenEndedPage.Controls.Add(RemoveAnswerButton);
+            OpenEndedPage.Controls.Add(AnswerInput);
+            OpenEndedPage.Controls.Add(AddAnswerButton);
+            OpenEndedPage.Controls.Add(AnswerList);
             OpenEndedPage.Location = new Point(4, 24);
             OpenEndedPage.Name = "OpenEndedPage";
             OpenEndedPage.Padding = new Padding(3);
-            OpenEndedPage.Size = new Size(743, 141);
+            OpenEndedPage.Size = new Size(700, 148);
             OpenEndedPage.TabIndex = 2;
             OpenEndedPage.Text = "Open ended";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Algerian", 10F);
+            label3.Location = new Point(106, 3);
+            label3.Name = "label3";
+            label3.Size = new Size(95, 15);
+            label3.TabIndex = 6;
+            label3.Text = "Answer list";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Algerian", 10F);
+            label2.Location = new Point(421, 3);
+            label2.Name = "label2";
+            label2.Size = new Size(141, 15);
+            label2.TabIndex = 5;
+            label2.Text = "Type your answer";
+            // 
+            // RemoveAnswerButton
+            // 
+            RemoveAnswerButton.BackColor = Color.FromArgb(255, 210, 150);
+            RemoveAnswerButton.Cursor = Cursors.Hand;
+            RemoveAnswerButton.FlatAppearance.BorderColor = Color.FromArgb(128, 64, 0);
+            RemoveAnswerButton.FlatAppearance.BorderSize = 3;
+            RemoveAnswerButton.FlatStyle = FlatStyle.Flat;
+            RemoveAnswerButton.Font = new Font("Algerian", 9.5F);
+            RemoveAnswerButton.ForeColor = Color.FromArgb(0, 0, 0, 0);
+            RemoveAnswerButton.Location = new Point(567, 93);
+            RemoveAnswerButton.Name = "RemoveAnswerButton";
+            RemoveAnswerButton.Size = new Size(128, 31);
+            RemoveAnswerButton.TabIndex = 4;
+            RemoveAnswerButton.Text = "Remove answer";
+            RemoveAnswerButton.UseVisualStyleBackColor = false;
+            RemoveAnswerButton.Click += RemoveAnswerButton_Click;
+            // 
+            // AnswerInput
+            // 
+            AnswerInput.BackColor = Color.FromArgb(255, 210, 150);
+            AnswerInput.BorderStyle = BorderStyle.None;
+            AnswerInput.Font = new Font("Algerian", 10F);
+            AnswerInput.Location = new Point(421, 30);
+            AnswerInput.Name = "AnswerInput";
+            AnswerInput.Size = new Size(272, 45);
+            AnswerInput.TabIndex = 3;
+            AnswerInput.Text = "";
+            // 
+            // AddAnswerButton
+            // 
+            AddAnswerButton.BackColor = Color.FromArgb(255, 210, 150);
+            AddAnswerButton.Cursor = Cursors.Hand;
+            AddAnswerButton.FlatAppearance.BorderColor = Color.FromArgb(128, 64, 0);
+            AddAnswerButton.FlatAppearance.BorderSize = 3;
+            AddAnswerButton.FlatStyle = FlatStyle.Flat;
+            AddAnswerButton.Font = new Font("Algerian", 10F);
+            AddAnswerButton.ForeColor = Color.FromArgb(0, 0, 0, 0);
+            AddAnswerButton.Location = new Point(421, 93);
+            AddAnswerButton.Name = "AddAnswerButton";
+            AddAnswerButton.Size = new Size(118, 31);
+            AddAnswerButton.TabIndex = 2;
+            AddAnswerButton.Text = "Add answer";
+            AddAnswerButton.UseVisualStyleBackColor = false;
+            AddAnswerButton.Click += AddAnswerButton_Click;
+            // 
+            // AnswerList
+            // 
+            AnswerList.BackColor = Color.FromArgb(255, 210, 150);
+            AnswerList.BorderStyle = BorderStyle.None;
+            AnswerList.Font = new Font("Algerian", 10F);
+            AnswerList.FormattingEnabled = true;
+            AnswerList.ItemHeight = 15;
+            AnswerList.Location = new Point(107, 30);
+            AnswerList.Name = "AnswerList";
+            AnswerList.Size = new Size(285, 90);
+            AnswerList.TabIndex = 0;
+            // 
+            // EmptyPage
+            // 
+            EmptyPage.Location = new Point(4, 24);
+            EmptyPage.Name = "EmptyPage";
+            EmptyPage.Padding = new Padding(3);
+            EmptyPage.Size = new Size(700, 148);
+            EmptyPage.TabIndex = 3;
+            EmptyPage.Text = "empty";
+            EmptyPage.UseVisualStyleBackColor = true;
             // 
             // QuestionManagementScene
             // 
@@ -312,10 +481,14 @@ namespace GeoExpert.views.create
             Name = "QuestionManagementScene";
             Size = new Size(816, 489);
             Load += QuestionManagementScene_Load;
-            MultiChoicePanel.ResumeLayout(false);
-            MultiChoicePanel.PerformLayout();
             QuestionTypeTab.ResumeLayout(false);
             MultiChoicePage.ResumeLayout(false);
+            MultiChoicePanel.ResumeLayout(false);
+            MultiChoicePanel.PerformLayout();
+            TrueFalsePage.ResumeLayout(false);
+            TrueFalsePage.PerformLayout();
+            OpenEndedPage.ResumeLayout(false);
+            OpenEndedPage.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -327,6 +500,10 @@ namespace GeoExpert.views.create
         private Label label1;
         private RichTextBox QuestionInput;
         public Button SaveBtn;
+        private TransparentTabControl QuestionTypeTab;
+        private TabPage TrueFalsePage;
+        private TabPage OpenEndedPage;
+        private TabPage MultiChoicePage;
         private Panel MultiChoicePanel;
         private Label CorrectAnswerIndicator;
         private TextBox AnswerInput4;
@@ -337,9 +514,17 @@ namespace GeoExpert.views.create
         private RadioButton Radio2;
         private TextBox AnswerInput1;
         private RadioButton Radio1;
-        private TabControl QuestionTypeTab;
-        private TabPage MultiChoicePage;
-        private TabPage TrueFalsePage;
-        private TabPage OpenEndedPage;
+        private Label FalseLabel;
+        private Label TrueLabel;
+        private Label TFCorrectIndicatior;
+        private RadioButton FalseRadio;
+        private RadioButton TrueRadio;
+        private RichTextBox AnswerInput;
+        private Button AddAnswerButton;
+        private ListBox AnswerList;
+        private TabPage EmptyPage;
+        private Button RemoveAnswerButton;
+        private Label label3;
+        private Label label2;
     }
 }
