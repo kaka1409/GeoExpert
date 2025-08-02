@@ -14,14 +14,18 @@ namespace GeoExpert.models
             get { return type; }
             set { type = value; }
         }
-        public MultiChoiceQuestion()
-        {
 
+        private int? userAnswer;
+        public int? UserAnswer
+        {
+            get { return userAnswer; }
+            set { userAnswer = value; }
         }
+        public MultiChoiceQuestion() { }
 
-        public override bool CheckAnswer()
+        public override bool IsAnswerCorrect()
         {
-            return true;
+            return CorrectAnswer == UserAnswer;
         }
 
     }

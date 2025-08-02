@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
+using GeoExpert.Utils;
 using GeoExpert.models;
 using GeoExpert.controllers;
 using GeoExpert.Views.Widget.Custom;
@@ -17,8 +18,12 @@ namespace GeoExpert.views.create;
 
 partial class CreateScene : UserControl
 {
-    // attribute to store game objects
-    private List<Game> games = new List<Game>();
+    private GameController gameController;
+    public GameController GameController
+    {
+        get { return gameController; }
+        set { gameController = value; }
+    }
 
     public CreateScene()
     {
@@ -61,48 +66,7 @@ partial class CreateScene : UserControl
 
     public string GetGameName()
     {
-        return string.IsNullOrEmpty(GameNameInput.Text) ? "Untitled" : GameNameInput.Text;
-    }
-
-    public string GetGameDate(DateTime gameCreateDate)
-    {
-        TimeSpan timePassed = DateTime.Now - gameCreateDate;
-        string result;
-
-        if (timePassed.Days >= 365 * 2)
-        {
-            result = ("Created " + timePassed.Days / 365 + " years ago");
-        }
-        else if (timePassed.Days < 365 * 2 && timePassed.Days > 365)
-        {
-            result = ("Created 1 year ago");
-        }
-        else if (timePassed.Days > 60)
-        {
-            result = ("Created " + timePassed.Days / 30 + " months ago");
-        }
-        else if (timePassed.Days < 60 && timePassed.Days > 30)
-        {
-            result = ("Created 1 month ago");
-        }
-        else if (timePassed.Days >= 1 && timePassed.Days <= 30)
-        {
-            result = ("Created " + timePassed.Days + " days ago");
-        }
-        else if (timePassed.Days == 0 && timePassed.Hours > 0)
-        {
-            result = ("Created " + timePassed.Hours + " hours ago");
-        }
-        else if (timePassed.Hours == 0 && timePassed.Minutes > 0)
-        {
-            result = ("Created " + timePassed.Minutes + " minutes ago");
-        }
-        else
-        {
-            result = ("Created Just Now");
-        }
-
-        return result;
+        return string.IsNullOrEmpty(GameNameInput.Text) ? "Untitled" : GameNameInput.Text.Trim();
     }
 
     public void AddNewGame()
@@ -110,8 +74,8 @@ partial class CreateScene : UserControl
         Game game = new Game();
         game.Title = GetGameName();
         game.CreateDate = DateTime.Now;
-        game.QuestionNumber = 0;
-        games.Add(game);
+
+        gameController.Games.Add(game);
 
         // Create new panel
         Panel GamePanel = new RoundedPanel();
@@ -132,14 +96,16 @@ partial class CreateScene : UserControl
 
         // Game's question numbers
         Label QuestionNumber = new Label();
-        QuestionNumber.Text = game.QuestionNumber + " Questions";
+        QuestionNumber.Name = "QuestionNumber";
+        QuestionNumber.Text = game.GetNumberOfQuestions() + " Questions";
         QuestionNumber.Font = new Font(ExitBtn.Font, FontStyle.Regular);
         QuestionNumber.Location = new Point(10, 40);
         QuestionNumber.AutoSize = true;
 
         // Game create date
         Label CreateDate = new Label();
-        CreateDate.Text = GetGameDate(game.CreateDate);
+        CreateDate.Name = "CreateDate";
+        CreateDate.Text = ViewHelper.FormatDate(game.CreateDate);
         CreateDate.Font = new Font(ExitBtn.Font.FontFamily, 10); // Set font size to 16
         CreateDate.Location = new Point(GamePanel.Width - 150, 10);
         CreateDate.AutoSize = true;
@@ -149,38 +115,28 @@ partial class CreateScene : UserControl
         GamePanel.Controls.Add(CreateDate);
         GameListConainer.Controls.Add(GamePanel);
 
-        // Event
-        GamePanel.Click += (s, e) =>
-        {
-            // update game create date
-            //foreach (Game game in games)
-            //{
-            //    if (games.Count == 0) break;
-
-            //    Control gamePanel = GameListConainer.Controls[0];
-            //    if (gamePanel == null) continue;
-
-            //    if (game.Title == gamePanel.Text)
-            //    {
-            //        gamePanel.Controls["CreateDate"].Text = GetGameDate(game.CreateDate);
-            //    }
-            //}
-        };
-
         // Reset input
         GameNameInput.Text = "";
     }
 
-    public Game FindGame(string gameTitle)
+    public void UpdateWidgetInfo()
     {
-        foreach (var game in games)
+        foreach (Panel gamePanel in GameListConainer.Controls)
         {
-            if (game.Title == gameTitle)
+            foreach(Control control in gamePanel.Controls)
             {
-                return game;
-            }
-        }
+                if (control.Name == "QuestionNumber" && control is Label)
+                {
+                    string questionNumer = gameController.CurrentGame.GetNumberOfQuestions().ToString();
+                    control.Text = questionNumer + " Questions";
+                }
 
-        return null;
+                if (control.Name == "CreateDate")
+                {
+                    control.Text = ViewHelper.FormatDate(DateTime.Now);
+                }
+            }
+
+        }
     }
 }

@@ -29,21 +29,11 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            label1 = new Label();
             ExitBtn = new Button();
             imageList1 = new ImageList(components);
-            flowLayoutPanel1 = new FlowLayoutPanel();
+            GameList = new FlowLayoutPanel();
+            label2 = new Label();
             SuspendLayout();
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(356, 45);
-            label1.Name = "label1";
-            label1.Size = new Size(34, 15);
-            label1.TabIndex = 0;
-            label1.Text = "PLAY";
-            label1.Click += label1_Click;
             // 
             // ExitBtn
             // 
@@ -67,22 +57,34 @@
             imageList1.ImageSize = new Size(16, 16);
             imageList1.TransparentColor = Color.Transparent;
             // 
-            // flowLayoutPanel1
+            // GameList
             // 
-            flowLayoutPanel1.Location = new Point(127, 88);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(568, 335);
-            flowLayoutPanel1.TabIndex = 2;
-            flowLayoutPanel1.Paint += flowLayoutPanel1_Paint;
+            GameList.BackColor = Color.Transparent;
+            GameList.Location = new Point(93, 128);
+            GameList.Name = "GameList";
+            GameList.Size = new Size(639, 312);
+            GameList.TabIndex = 2;
+            GameList.Paint += flowLayoutPanel1_Paint;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.BackColor = Color.Transparent;
+            label2.Font = new Font("Algerian", 20F);
+            label2.Location = new Point(93, 80);
+            label2.Name = "label2";
+            label2.Size = new Size(177, 30);
+            label2.TabIndex = 7;
+            label2.Text = "Your games";
             // 
             // PlayScene
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = Properties.Resources.blurredBackground;
-            Controls.Add(flowLayoutPanel1);
+            Controls.Add(label2);
+            Controls.Add(GameList);
             Controls.Add(ExitBtn);
-            Controls.Add(label1);
             Name = "PlayScene";
             Size = new Size(816, 489);
             Load += PlayScene_Load;
@@ -91,10 +93,9 @@
         }
 
         #endregion
-
-        private Label label1;
         public Button ExitBtn;
         private ImageList imageList1;
-        private FlowLayoutPanel flowLayoutPanel1;
+        public FlowLayoutPanel GameList;
+        private Label label2;
     }
 }

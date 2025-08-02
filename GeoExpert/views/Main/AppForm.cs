@@ -7,6 +7,7 @@ using GeoExpert.models;
 using GeoExpert.controllers;
 using GeoExpert.views.create;
 using GeoExpert.views.play;
+using GeoExpert.Views.Play;
 
 namespace GeoExpert.views.main
 {
@@ -22,14 +23,24 @@ namespace GeoExpert.views.main
 
         private void InitializePage()
         {
-            // Controllers instance
+            // Controllers instances
             QuestionController questionController = new QuestionController();
             GameController gameController = new GameController();
 
-            // Scene instances
+            // Let scene instances use controllers
             MenuScene menuScene = new MenuScene();
+
             PlayScene playScene = new PlayScene();
+            playScene.GameController = gameController;
+
+            InGameScene inGameScene = new InGameScene();
+            inGameScene.GameController = gameController;
+
+            ResultScene resultScene = new ResultScene();
+            resultScene.GameController = gameController;
+
             CreateScene createScene = new CreateScene();
+            createScene.GameController = gameController;
 
             GameManagementScene gameManagementScene = new GameManagementScene();
             gameManagementScene.QuestionController = questionController;
@@ -45,7 +56,28 @@ namespace GeoExpert.views.main
             // Navigation between pages
             menuScene.PlayBtn.Click += (s, e) => 
             { 
-                ShowPage("Play"); 
+                ShowPage("Play");
+                playScene.UpdateWidgetInfo();
+                foreach (Control gamePanel in playScene.GameList.Controls)
+                {
+                    gamePanel.Click += (s, e) =>
+                    {
+                        Game? game = gameController.FindGame(gamePanel.Name);
+
+                        if (game != null)
+                        {
+                            gameController.CurrentPlayGame = game;
+                            if (game.Questions.Count > 0)
+                            {
+                                inGameScene.UpdateWidgetInfo();
+                                ShowPage("InGame");
+                            } else
+                            {
+                                MessageBox.Show("Your game has no questions, please add questions if you want to play");
+                            }
+                        }
+                    };
+                }
             };
 
             menuScene.CreateBtn.Click += (s, e) =>
@@ -58,9 +90,52 @@ namespace GeoExpert.views.main
                 ShowPage("Menu");
             };
 
+            inGameScene.ExitButton.Click += (s, e) =>
+            {
+                ShowPage("Result");
+                resultScene.UpdateWidgetInfo();
+            };
+
+            inGameScene.SubmitButton.Click += (s, e) =>
+            {
+                ShowPage("Result");
+                resultScene.UpdateWidgetInfo();
+            };
+
+            resultScene.BacktoMenuButton.Click += (s, e) =>
+            {
+                ShowPage("Menu");
+                gameController.ClearAllUserAnswer();
+            };
+
+            resultScene.ContinueButton.Click += (s, e) =>
+            {
+                ShowPage("Play");
+                gameController.ClearAllUserAnswer();
+            };
+
             createScene.ExitBtn.Click += (s, e) =>
             {
                 ShowPage("Menu");
+            };
+
+            // Add game
+            createScene.ConfirmGameBtn.Click += (s, e) =>
+            {
+                foreach (Control gamePanel in createScene.GameListConainer.Controls)
+                {
+                    gamePanel.Click += (s, e) =>
+                    {
+                        Game? game = gameController.FindGame(gamePanel.Name);
+
+                        if (game != null)
+                        {
+                            gameController.CurrentGame = game;
+                            ShowPage("GameManage");
+                            gameManagementScene.UpdateWidgetInfo();
+                        }
+                    };
+                }
             };
 
             gameManagementScene.ExitBtn.Click += (s, e) =>
@@ -73,30 +148,20 @@ namespace GeoExpert.views.main
                 ShowPage("QuestionManage");
             };
 
+            // Go go edit question scene
+            gameManagementScene.EditQuestionBtn.Click += (s, e) =>
+            {
+                dynamic questionToEdit = gameManagementScene.QuestionController.SelectedQuestion;
+                if (questionToEdit != null)
+                {
+                    ShowPage("QuestionEdit");
+                    editQuestionScene.UpdateWidgetInfo();
+                }
+            };
+
             questionManagementScene.ExitBtn.Click += (s, e) =>
             {
                 ShowPage("GameManage");
-            };
-
-            editQuestionScene.ExitBtn.Click += (s, e) => 
-            { 
-                ShowPage("GameManage");
-                editQuestionScene.ResetQuestionInputs();
-            };
-
-            // Add game
-            createScene.ConfirmGameBtn.Click += (s, e) => 
-            {
-                foreach (Control gamePanel in createScene.GameListConainer.Controls)
-                {
-                    gamePanel.Click += (s, e) =>
-                    {
-                        ShowPage("GameManage");
-                        Game game = createScene.FindGame(gamePanel.Name);
-                        gameController.CurrentGame = game;  
-                        gameManagementScene.UpdateWidgetInfo();
-                    };
-                }
             };
 
             // Add question
@@ -111,18 +176,13 @@ namespace GeoExpert.views.main
                     currentGame.Questions.Add(question);
                     controller.SetQuestion(null);
                     gameManagementScene.UpdateWidgetInfo();
-                } 
+                }
             };
 
-            // Go go edit question scene
-            gameManagementScene.EditQuestionBtn.Click += (s, e) => 
-            {
-                dynamic questionToEdit = gameManagementScene.QuestionController.SelectedQuestion;
-                if (questionToEdit != null)
-                {
-                    ShowPage("QuestionEdit");
-                    editQuestionScene.UpdateWidgetInfo();
-                }
+            editQuestionScene.ExitBtn.Click += (s, e) => 
+            { 
+                ShowPage("GameManage");
+                editQuestionScene.ResetQuestionInputs();
             };
 
             // Save edit question
@@ -136,14 +196,20 @@ namespace GeoExpert.views.main
                 }
             };
 
+            // Main
             pages["Menu"] = menuScene;
+
+            // Play
             pages["Play"] = playScene;
+            pages["InGame"] = inGameScene;
+            pages["Result"] = resultScene;
+
+            // Create
             pages["Create"] = createScene;
             pages["GameManage"] = gameManagementScene;
             pages["QuestionManage"] = questionManagementScene;
             pages["QuestionEdit"] = editQuestionScene;
 
-            // Add all pages to the form, but they start hidden
             foreach (var page in pages.Values)
                 Controls.Add(page);
         }
@@ -153,8 +219,6 @@ namespace GeoExpert.views.main
             foreach (var page in pages)
                 page.Value.Visible = page.Key == key;
         }
-
-   
 
         private void Form1_Load(object sender, EventArgs e)
         {

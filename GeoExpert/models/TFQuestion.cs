@@ -14,14 +14,19 @@ namespace GeoExpert.models
             get { return type; }
             set { type = value; }
         }
-        public TFQuestion()
-        {
 
+        private int? userAnswer;
+        public int? UserAnswer
+        {
+            get { return userAnswer; }
+            set { userAnswer = value; }
         }
 
-        public override bool CheckAnswer()
+        public TFQuestion() { }
+
+        public override bool IsAnswerCorrect()
         {
-            return true;
+            return userAnswer == CorrectAnswer;
         }
     }
 }

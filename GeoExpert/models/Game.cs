@@ -30,15 +30,27 @@ namespace GeoExpert.models
         }
 
         private int questionNumber;
-        public int QuestionNumber { get; set; }
+        public int QuestionNumber
+        {
+            get { return questionNumber; }
+            set { questionNumber = value; }
+        }
         private TimeSpan time { get; set; }
         private int score;
         public int Score { get; set; }
         private DateTime createDate;
-        public DateTime CreateDate { get; set; }
+        public DateTime CreateDate
+        {
+            get { return  createDate; }
+            set { createDate = value; }
+        }
         private DateTime LastPlayed { get; set; }
         private bool isFinished;
-        public bool IsFinished { get; set; }
+        public bool IsFinished
+        {
+            get { return isFinished; }
+            set { isFinished = value; }
+        }
 
         public Game() { }
 
@@ -52,6 +64,9 @@ namespace GeoExpert.models
             Questions.RemoveAt(index);
         }
 
-
+        public int GetNumberOfQuestions()
+        {
+            return Questions.Count;
+        }
     }
 }

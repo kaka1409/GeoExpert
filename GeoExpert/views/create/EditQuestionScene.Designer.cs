@@ -399,6 +399,7 @@ namespace GeoExpert.views.create
             QuestionTypeTab.Controls.Add(TrueFalsePage);
             QuestionTypeTab.Controls.Add(OpenEndedPage);
             QuestionTypeTab.Controls.Add(EmptyPage);
+            QuestionTypeTab.ItemSize = new Size(0, 1);
             QuestionTypeTab.Location = new Point(0, 215);
             QuestionTypeTab.Name = "QuestionTypeTab";
             QuestionTypeTab.SelectedIndex = 3;

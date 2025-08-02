@@ -21,10 +21,18 @@ namespace GeoExpert.models
             get { return correctAnswers; }
             set { correctAnswers = value; }
         }
-        public OpenEndedQuestion() { }
-        public override bool CheckAnswer()
+
+        private string? userAnswer;
+        public string? UserAnswer
         {
-            return true;
+            get { return userAnswer; }
+            set { userAnswer = value; }
+        }
+
+        public OpenEndedQuestion() { }
+        public override bool IsAnswerCorrect()
+        {
+            return correctAnswers.Contains(UserAnswer.Trim());
         }
 
     }

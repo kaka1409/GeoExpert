@@ -9,9 +9,6 @@ namespace GeoExpert.models
 {
     abstract class Question
     {
-        private int id;
-        public int Id { get; set; }
-
         private string content;
         public string Content
         {
@@ -31,7 +28,7 @@ namespace GeoExpert.models
             set { correctAnswer = value; }
         }
 
-        public abstract bool CheckAnswer();
+        public abstract bool IsAnswerCorrect();
 
 
     }
